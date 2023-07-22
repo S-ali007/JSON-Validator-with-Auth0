@@ -22,7 +22,7 @@ function SignupPage() {
   const webAuth = new auth0.WebAuth({
     domain: "techtribe.us.auth0.com",
     clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-    redirectUri: "http://localhost:3000/home", // Redirect URI after successful signup
+    redirectUri: "https://localhost:3000/home", // Redirect URI after successful signup
   });
 
 

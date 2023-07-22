@@ -11,7 +11,7 @@ function Header({ setToken, extraclasses }) {
     const webAuth = new auth0.WebAuth({
       domain: "techtribe.us.auth0.com",
       clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-      redirectUri: "http://localhost:3000/home",
+      redirectUri: "https://localhost:3000/home",
     });
 
     const parseAccessToken = () => {
@@ -20,7 +20,7 @@ function Header({ setToken, extraclasses }) {
       if (tokenIndex !== -1) {
         const endTokenIndex = hash.indexOf("&", tokenIndex);
         const accessToken = hash.substring(
-          tokenIndex + "access_token=".length,
+             + "access_token=".length,
           endTokenIndex !== -1 ? endTokenIndex : undefined
         );
         return accessToken;
@@ -28,7 +28,7 @@ function Header({ setToken, extraclasses }) {
       return null;
     };
 
-    
+
     const accessToken = parseAccessToken();
     if (accessToken) {
       webAuth.client.userInfo(accessToken, function (err, user) {
