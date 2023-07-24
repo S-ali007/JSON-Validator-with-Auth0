@@ -15,20 +15,20 @@ function App() {
 
   const storedToken = sessionStorage.getItem("username");
   console.log(storedToken)
-  useEffect(() => {
-    if (storedToken) {
-      setToken(storedToken);
-      // navigate("/")
+  // useEffect(() => {
+  //   if (storedToken) {
+  //     setToken(storedToken);
+  //     // navigate("/")
        
-    }
-  }, [storedToken]);
+  //   }
+  // }, [storedToken]);
 
   return (    
     <>
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
-        
-       {token ? <Route path={"/home"} element={<All_Components setdata={setdata} />} />: <Route path={"/"} element={<LoginPopup setToken={setToken} />} />}
+        <Route path={"/"} element={<LoginPopup setToken={setToken} />} />
+        <Route path={"/home"} element={<All_Components setdata={setdata} />} /> 
         <Route path="/*" element={<Page_404 />} />
       </Routes>
     </>
