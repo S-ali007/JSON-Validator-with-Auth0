@@ -70,7 +70,7 @@ function SignupPage() {
               }
 
               // Navigate to the home page after successful signup and login
-              navigate("/home");
+              // navigate("/home");
             }
           );
         
