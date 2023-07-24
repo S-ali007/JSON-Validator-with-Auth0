@@ -87,34 +87,34 @@ function LoginPopup({ onClose, setToken }) {
           }
 
             // // After successful signup, login the user to get the accessToken
-            // webAuth.login(
-            //   {
-            //     connection: "JSON-Validator",
-            //     username: email,
-            //     password: password,
+            webAuth.login(
+              {
+                connection: "JSON-Validator",
+                username: email,
+                password: password,
                 
-            //   },
-            //   function (err, authResult) {
-            //     if (err) {
-            //       console.error("Error logging in:", err.code);
-            //       alert("Error logging in. Please check your credentials.");
-            //       return;
-            //     }
+              },
+              function (err, authResult) {
+                if (err) {
+                  console.error("Error logging in:", err.code);
+                  alert("Error logging in. Please check your credentials.");
+                  return;
+                }
     
-            //     // Fetch user profile data using the accessToken from authResult
-            //     const accessToken = authResult.accessToken;
-            //     webAuth.client.userInfo(accessToken, function (err, profile) {
-            //       if (err) {
-            //         console.error("Error fetching user profile:", err);
-            //         return;
-            //       }
-            //       console.log("User Profile:", profile); // Display user data in the console
-            //     });
+                // Fetch user profile data using the accessToken from authResult
+                const accessToken = authResult.accessToken;
+                webAuth.client.userInfo(accessToken, function (err, profile) {
+                  if (err) {
+                    console.error("Error fetching user profile:", err);
+                    return;
+                  }
+                  console.log("User Profile:", profile); // Display user data in the console
+                });
     
-            //     // Navigate to the home page after successful signup and login
-            //     navigate("/home");
-            //   }
-            // );
+                // Navigate to the home page after successful signup and login
+                navigate("/home");
+              }
+            );
 
       
 
