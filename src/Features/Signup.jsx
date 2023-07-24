@@ -55,24 +55,24 @@ function SignupPage() {
           alert("Signup successful!");
 
           // Log in the user after successful signup to fetch the user profile data
-          webAuth.login(
-            {
-              connection: "JSON-Validator",
-              username: email,
-              password: password,
-              responseType: "token id_token",
-            },
-            function (err) {
-              if (err) {
-                // console.error("Error logging in:", err);
-                alert("Error logging in. Please check your credentials.", err);
-                return;
-              }
+          // webAuth.login(
+          //   {
+          //     connection: "JSON-Validator",
+          //     username: email,
+          //     password: password,
+          //     responseType: "token id_token",
+          //   },
+          //   function (err) {
+          //     if (err) {
+          //       // console.error("Error logging in:", err);
+          //       alert("Error logging in. Please check your credentials.", err);
+          //       return;
+          //     }
 
-              // Navigate to the home page after successful signup and login
-              navigate("/home");
-            }
-          );
+          //     // Navigate to the home page after successful signup and login
+          //     navigate("/home");
+          //   }
+          // );
         
             const parseAccessToken = () => {
               const hash = window.location.hash;

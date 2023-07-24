@@ -18,6 +18,7 @@ function App() {
   useEffect(() => {
     if (storedToken) {
       setToken(storedToken);
+      navigate("/home")
        
     }
   }, [storedToken]);
