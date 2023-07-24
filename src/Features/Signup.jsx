@@ -49,7 +49,7 @@ function SignupPage() {
         function (err, authResult) {
           if (err) {
             console.error("Error signing up:", err);
-            alert("Error signing up. Please try again later.");
+            // alert("Error signing up. Please try again later.");
             return;
           }
           console.log("Signup successful!");
@@ -66,7 +66,7 @@ function SignupPage() {
             function (err, authResult) {
               if (err) {
                 console.error("Error logging in:", err);
-                alert("Error logging in. Please check your credentials.");
+                // alert("Error logging in. Please check your credentials.");
                 return;
               }
   
@@ -88,7 +88,7 @@ function SignupPage() {
       );
     } catch (error) {
       console.error("Error signing up:", error);
-      alert("Error signing up. Please try again later.");
+      // alert("Error signing up. Please try again later.");
     }
   }
   
