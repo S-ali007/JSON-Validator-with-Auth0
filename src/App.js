@@ -4,43 +4,33 @@ import All_Components from "./Components/All_Components";
 import SignupPage from "./Features/Signup";
 import LoginPopup from "./Features/LoginPopup";
 import Page_404 from "./Components/Page_404";
+import { Link, useNavigate } from "react-router-dom";
+
 
 function App() {
   const [token, setToken] = useState(null);
   const [data, setdata] = useState("");
+  const navigate = useNavigate();
 
-  // Get the URL location and query parameters
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const urlToken = queryParams.get("token");
 
+  const storedToken = sessionStorage.getItem("username");
+  console.log(storedToken)
   useEffect(() => {
-    // If the token is present in the URL, save it to local storage
-    if (urlToken) {
-      setToken(urlToken);
-      localStorage.setItem("accessToken", urlToken);
+    if (storedToken) {
+      setToken(storedToken);
+      navigate("/home");
 
-      // Remove the token from the URL to prevent security issues
-      const urlWithoutToken = location.pathname;
-      window.history.replaceState({}, document.title, urlWithoutToken);
-    } else {
-      // If the token is not present in the URL, check local storage
-      const storedToken = localStorage.getItem("accessToken");
-      if (storedToken) {
-        setToken(storedToken);
-      }
+
     }
-  }, [urlToken, location.pathname]);
+  }, [storedToken]);
 
-  return (
+  return (    
     <>
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
-        <Route
-          path={"/"}
-          element={token ? <All_Components setdata={setdata} /> : <LoginPopup setToken={setToken} />}
-        />
+        <Route path={"/"} element={<LoginPopup setToken={setToken} />} />
         <Route path={"/home"} element={<All_Components setdata={setdata} />} />
+       
         <Route path="/*" element={<Page_404 />} />
       </Routes>
     </>

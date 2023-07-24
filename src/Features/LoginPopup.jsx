@@ -35,7 +35,7 @@ function LoginPopup({ onClose, setToken }) {
       const webAuth = new auth0.WebAuth({
         domain: "techtribe.us.auth0.com",
         clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-        redirectUri: "https://localhost:3000/home",
+        redirectUri: "http://localhost:3000/home",
       });
 
       const { email, password } = formData;
@@ -80,7 +80,7 @@ function LoginPopup({ onClose, setToken }) {
                 });
     
                 // Navigate to the home page after successful signup and login
-                // navigate("/home");
+                navigate("/home");
               }
             );
 
@@ -94,24 +94,7 @@ function LoginPopup({ onClose, setToken }) {
     }
   }
 
-  // async function fetchProfile(accessToken) {
-  //   const url = "https://techtribe.us.auth0.com/userinfo";
-  //   const headers = {
-  //     Authorization: `Bearer ${accessToken}`,
-  //   };
-  //   console.log(headers);
-  //   const response = await fetch(url, {
-  //     headers: headers,
-  //   });
-  //   console.log(response);
 
-  //   if (!response.ok) {
-  //     throw new Error("Failed to fetch user profile");
-  //   }
-
-  //   const userProfile = await response.json();
-  //   return userProfile;
-  // }
 
   return (
     <>

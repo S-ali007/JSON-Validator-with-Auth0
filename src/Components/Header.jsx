@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import auth0 from "auth0-js";
 import Button from "./Button";
+import { json } from "react-router-dom";
 
 function Header({ setToken, extraclasses }) {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -11,7 +12,7 @@ function Header({ setToken, extraclasses }) {
     const webAuth = new auth0.WebAuth({
       domain: "techtribe.us.auth0.com",
       clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-      redirectUri: "https://localhost:3000/home",
+      redirectUri: "http://localhost:3000/home",
     });
 
     const parseAccessToken = () => {
@@ -20,14 +21,13 @@ function Header({ setToken, extraclasses }) {
       if (tokenIndex !== -1) {
         const endTokenIndex = hash.indexOf("&", tokenIndex);
         const accessToken = hash.substring(
-             + "access_token=".length,
+          tokenIndex + "access_token=".length,
           endTokenIndex !== -1 ? endTokenIndex : undefined
         );
         return accessToken;
       }
       return null;
     };
-
 
     const accessToken = parseAccessToken();
     if (accessToken) {
@@ -39,6 +39,8 @@ function Header({ setToken, extraclasses }) {
 
         // Store the user profile in state
         setUserProfile(user);
+        
+        sessionStorage.setItem("username",user.sub)
         console.log(user)
       });
     }
@@ -49,14 +51,16 @@ function Header({ setToken, extraclasses }) {
       const webAuth = new auth0.WebAuth({
         domain: "techtribe.us.auth0.com",
         clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-        redirectUri: "http://localhost:3000/home",
+        redirectUri: "http://localhost:3000/",
       });
 
       webAuth.logout({
         domain: "techtribe.us.auth0.com",
         clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-        redirectUri: "http://localhost:3000/home",
+        redirectUri: "http://localhost:3000/",
       });
+      sessionStorage.clear()
+      
     } catch (error) {
       console.error("Error Logging:", error);
     }
@@ -75,7 +79,7 @@ function Header({ setToken, extraclasses }) {
       <div className="flex items-center gap-4 max-w-[300px] w-full">
         {userProfile && (
           <h1 className="font-serif text-[25px] rounded-[10px] text-center tracking-wide border-[2px] max-w-[300px] w-full bg-sky-500 text-white">
-            {userProfile.nickname}
+            {userProfile.name}
           </h1>
         )}
         <Button
