@@ -12,7 +12,7 @@ function Header({ setToken, extraclasses }) {
     const webAuth = new auth0.WebAuth({
       domain: "techtribe.us.auth0.com",
       clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-      redirectUri: "https://localhost:3000/home",
+      redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/",
     });
 
     const parseAccessToken = () => {
