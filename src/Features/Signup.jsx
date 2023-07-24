@@ -48,7 +48,7 @@ function SignupPage() {
         },
         function (err) {
           if (err) {
-            console.error("Error signing up:", err.code);
+            console.error("Error signing up:", err);
             alert(err.name)
             return;
           }

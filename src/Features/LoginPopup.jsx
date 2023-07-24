@@ -52,6 +52,7 @@ function LoginPopup({ onClose, setToken }) {
           if (err) {
             console.error("Error logging in:", err);
             setLoginError("Error logging in. Please check your credentials.");
+            alert(err.description)
             return;
           }
             // After successful signup, login the user to get the accessToken
@@ -64,7 +65,7 @@ function LoginPopup({ onClose, setToken }) {
               },
               function (err, authResult) {
                 if (err) {
-                  console.error("Error logging in:", err);
+                  console.error("Error logging in:", err.code);
                   alert("Error logging in. Please check your credentials.");
                   return;
                 }
