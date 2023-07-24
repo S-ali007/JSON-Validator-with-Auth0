@@ -55,35 +55,66 @@ function LoginPopup({ onClose, setToken }) {
             alert(err.description)
             return;
           }
-            // After successful signup, login the user to get the accessToken
-            webAuth.login(
-              {
-                connection: "JSON-Validator",
-                username: email,
-                password: password,
-                
-              },
-              function (err, authResult) {
-                if (err) {
-                  console.error("Error logging in:", err.code);
-                  alert("Error logging in. Please check your credentials.");
-                  return;
-                }
-    
-                // Fetch user profile data using the accessToken from authResult
-                const accessToken = authResult.accessToken;
-                webAuth.client.userInfo(accessToken, function (err, profile) {
-                  if (err) {
-                    console.error("Error fetching user profile:", err);
-                    return;
-                  }
-                  console.log("User Profile:", profile); // Display user data in the console
-                });
-    
-                // Navigate to the home page after successful signup and login
-                navigate("/home");
+
+          const parseAccessToken = () => {
+            const hash = window.location.hash;
+            const tokenIndex = hash.indexOf("access_token=");
+            if (tokenIndex !== -1) {
+              const endTokenIndex = hash.indexOf("&", tokenIndex);
+              const accessToken = hash.substring(
+                tokenIndex + "access_token=".length,
+                endTokenIndex !== -1 ? endTokenIndex : undefined
+              );
+              return accessToken;
+            }
+            return null;
+          };
+      
+          const accessToken = parseAccessToken();
+          if (accessToken) {
+            webAuth.client.userInfo(accessToken, function (err, user) {
+              if (err) {
+                console.error("Error fetching user profile:", err);
+                return;
               }
-            );
+      
+              // Store the user profile in state
+              setUserProfile(user);
+              
+              sessionStorage.setItem("username",user.sub)
+              console.log(user)
+            });
+          }
+
+            // // After successful signup, login the user to get the accessToken
+            // webAuth.login(
+            //   {
+            //     connection: "JSON-Validator",
+            //     username: email,
+            //     password: password,
+                
+            //   },
+            //   function (err, authResult) {
+            //     if (err) {
+            //       console.error("Error logging in:", err.code);
+            //       alert("Error logging in. Please check your credentials.");
+            //       return;
+            //     }
+    
+            //     // Fetch user profile data using the accessToken from authResult
+            //     const accessToken = authResult.accessToken;
+            //     webAuth.client.userInfo(accessToken, function (err, profile) {
+            //       if (err) {
+            //         console.error("Error fetching user profile:", err);
+            //         return;
+            //       }
+            //       console.log("User Profile:", profile); // Display user data in the console
+            //     });
+    
+            //     // Navigate to the home page after successful signup and login
+            //     navigate("/home");
+            //   }
+            // );
 
       
 
