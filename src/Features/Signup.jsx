@@ -22,38 +22,36 @@ function SignupPage() {
   const webAuth = new auth0.WebAuth({
     domain: "techtribe.us.auth0.com",
     clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-    redirectUri: "http://localhost:3000/home", // Redirect URI after successful signup
+    redirectUri: "https://melodic-cassata-2af0ea.netlify.app/home" // Redirect URI after successful signup
   });
-
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       const { email, password, full_name } = formData;
-  
+
       // Simple validation check for email
       if (!email) {
         alert("Error signing up: Email is required.");
         return;
       }
-  
+
       // Signup the user
       webAuth.signup(
         {
           connection: "JSON-Validator",
-          email:email,
-          password:password,
-          name:full_name,
-          
+          email: email,
+          password: password,
+          name: full_name,
         },
         function (err) {
           if (err) {
             console.error("Error signing up:", err);
-            alert(err.name)
+            alert(err.name);
             return;
           }
           alert("Signup successful!");
-  
+
           // Log in the user after successful signup to fetch the user profile data
           webAuth.login(
             {
@@ -65,26 +63,22 @@ function SignupPage() {
             function (err) {
               if (err) {
                 // console.error("Error logging in:", err);
-                alert("Error logging in. Please check your credentials.",err);
+                alert("Error logging in. Please check your credentials.", err);
                 return;
               }
-  
-      
-  
+
               // Navigate to the home page after successful signup and login
               navigate("/home");
             }
           );
         }
       );
-    }
-    
-    catch (error) {
+    } catch (error) {
       // console.error("Error signing up:", error);
-      alert( error);
+      alert(error);
     }
   }
-  
+
   return (
     <>
       <div className="flex justify-center items-center w-full h-[600px]">
@@ -151,7 +145,6 @@ function SignupPage() {
           </div>
         </div>
       </div>
-
     </>
   );
 }
