@@ -51,13 +51,13 @@ function Header({ setToken, extraclasses }) {
       const webAuth = new auth0.WebAuth({
         domain: "techtribe.us.auth0.com",
         clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-        redirectUri: "http://localhost:3000/",
+        redirectUri: "https://melodic-cassata-2af0ea.netlify.app/",
       });
 
       webAuth.logout({
         domain: "techtribe.us.auth0.com",
         clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-        redirectUri: "http://localhost:3000/",
+        redirectUri: "https://melodic-cassata-2af0ea.netlify.app/",
       });
       sessionStorage.clear()
       
