@@ -33,7 +33,7 @@ function SignupPage() {
   
       // Simple validation check for email
       if (!email) {
-        console.error("Error signing up: Email is required.");
+        alert("Error signing up: Email is required.");
         return;
       }
   
@@ -46,49 +46,42 @@ function SignupPage() {
           name:full_name,
           
         },
-        function (err, authResult) {
+        function (err) {
           if (err) {
-            console.error("Error signing up:", err);
-            // alert("Error signing up. Please try again later.");
+            console.error("Error signing up:", err.code);
+            alert(err.name)
             return;
           }
-          console.log("Signup successful!");
-          console.log("User Profile:", authResult.user);                                                    
+          alert("Signup successful!");
   
           // Log in the user after successful signup to fetch the user profile data
-          webAuth.login(
-            {
-              connection: "JSON-Validator",
-              username: email,
-              password: password,
-              responseType: "token id_token",
-            },
-            function (err, authResult) {
-              if (err) {
-                console.error("Error logging in:", err);
-                // alert("Error logging in. Please check your credentials.");
-                return;
-              }
+          // webAuth.login(
+          //   {
+          //     connection: "JSON-Validator",
+          //     username: email,
+          //     password: password,
+          //     responseType: "token id_token",
+          //   },
+          //   function (err) {
+          //     if (err) {
+          //       // console.error("Error logging in:", err);
+          //       alert("Error logging in. Please check your credentials.",err);
+          //       return;
+          //     }
   
-              // Fetch user profile data using the accessToken from authResult
-              const accessToken = authResult.accessToken;
-              webAuth.client.userInfo(accessToken, function (err, profile) {
-                if (err) {
-                  console.error("Error fetching user profile:", err);
-                  return;
-                }
-                console.log("User Profile:", profile); // Display user data in the console
-              });
+      
   
-              // Navigate to the home page after successful signup and login
-              navigate("/home");
-            }
-          );
+          //     // Navigate to the home page after successful signup and login
+          //     navigate("/home");
+          //   }
+          // );
         }
       );
-    } catch (error) {
-      console.error("Error signing up:", error);
-      // alert("Error signing up. Please try again later.");
+    }
+    
+    catch (error) {
+      // console.error("Error signing up:", error);
+      alert( error);
     }
   }
   
