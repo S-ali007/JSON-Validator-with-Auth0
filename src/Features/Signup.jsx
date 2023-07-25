@@ -26,6 +26,35 @@ function SignupPage() {
     clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
     redirectUri: "https://melodic-cassata-2af0ea.netlify.app/home" // Redirect URI after successful signup
   });
+  const parseAccessToken = () => {
+    const hash = window.location.hash;
+    const tokenIndex = hash.indexOf("access_token=");
+    if (tokenIndex !== -1) {
+      const endTokenIndex = hash.indexOf("&", tokenIndex);
+      const accessToken = hash.substring(
+        tokenIndex + "access_token=".length,
+        endTokenIndex !== -1 ? endTokenIndex : undefined
+      );
+      return accessToken;
+    }
+    return null;
+  };
+
+  const accessToken = parseAccessToken();
+  if (accessToken) {
+    webAuth.client.userInfo(accessToken, function (err, user) {
+      if (err) {
+        console.error("Error fetching user profile:", err);
+        return;
+      }
+
+      // Store the user profile in state
+      setUserProfile(user);
+      
+      sessionStorage.setItem("username",user.sub)
+      console.log(user)
+    });
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -75,36 +104,6 @@ function SignupPage() {
           //     // navigate("/home");
           //   }
           // );
-        
-            const parseAccessToken = () => {
-              const hash = window.location.hash;
-              const tokenIndex = hash.indexOf("access_token=");
-              if (tokenIndex !== -1) {
-                const endTokenIndex = hash.indexOf("&", tokenIndex);
-                const accessToken = hash.substring(
-                  tokenIndex + "access_token=".length,
-                  endTokenIndex !== -1 ? endTokenIndex : undefined
-                );
-                return accessToken;
-              }
-              return null;
-            };
-        
-            const accessToken = parseAccessToken();
-            if (accessToken) {
-              webAuth.client.userInfo(accessToken, function (err, user) {
-                if (err) {
-                  console.error("Error fetching user profile:", err);
-                  return;
-                }
-        
-                // Store the user profile in state
-                setUserProfile(user);
-                
-                sessionStorage.setItem("username",user.sub)
-                console.log(user)
-              });
-            }
           ;
         }
       );
