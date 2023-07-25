@@ -39,7 +39,7 @@ function SignupPage() {
       }
 
       // Signup the user
-      webAuth.signup(
+      webAuth.signup( 
         {
           connection: "JSON-Validator",
           email: email,
@@ -49,11 +49,12 @@ function SignupPage() {
         function (err) {
           if (err) {
             console.error("Error signing up:", err);
-            alert(err.name);
+            alert("Error signing up. Please try again later.");
             return;
           }
-          alert("Signup successful!");
-
+  
+          console.log("Signup successful!");
+  
           // Log in the user after successful signup to fetch the user profile data
           webAuth.login(
             {
@@ -62,53 +63,32 @@ function SignupPage() {
               password: password,
               responseType: "token id_token",
             },
-            function (err) {
+            function (err, authResult) {
               if (err) {
-                // console.error("Error logging in:", err);
-                alert("Error logging in. Please check your credentials.", err);
+                console.error("Error logging in:", err);
+                alert("Error logging in. Please check your credentials.");
                 return;
               }
-
-              // Navigate to the home page after successful signup and login
-              // navigate("/home");
-            }
-          );
-        
-            const parseAccessToken = () => {
-              const hash = window.location.hash;
-              const tokenIndex = hash.indexOf("access_token=");
-              if (tokenIndex !== -1) {
-                const endTokenIndex = hash.indexOf("&", tokenIndex);
-                const accessToken = hash.substring(
-                  tokenIndex + "access_token=".length,
-                  endTokenIndex !== -1 ? endTokenIndex : undefined
-                );
-                return accessToken;
-              }
-              return null;
-            };
-        
-            const accessToken = parseAccessToken();
-            if (accessToken) {
-              webAuth.client.userInfo(accessToken, function (err, user) {
+  
+              // Fetch user profile data using the accessToken from authResult
+              const accessToken = authResult.accessToken;
+              webAuth.client.userInfo(accessToken, function (err, profile) {
                 if (err) {
                   console.error("Error fetching user profile:", err);
                   return;
                 }
-        
-                // Store the user profile in state
-                setUserProfile(user);
-                
-                sessionStorage.setItem("username",user.sub)
-                console.log(user)
+                console.log("User Profile:", profile); // Display user data in the console
               });
+  
+              // Navigate to the home page after successful signup and login
+              navigate("/home");
             }
-          ;
+          );
         }
       );
     } catch (error) {
-      // console.error("Error signing up:", error);
-      alert(error);
+      console.error("Error signing up:", error);
+      alert("Error signing up. Please try again later.");
     }
   }
 
