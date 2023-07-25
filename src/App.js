@@ -48,10 +48,10 @@ function App() {
         setUserProfile(user);
         
         sessionStorage.setItem("username",user.sub)
-        console.log(user)
+        console.log(user,"ali")
       });
     }
-  }, [isAuthenticated, getAccessTokenSilently]);
+  }, [] );
 
   return (    
     <>
