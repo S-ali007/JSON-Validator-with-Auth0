@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import auth0 from "auth0-js";
 
@@ -8,6 +8,8 @@ function SignupPage() {
     email: "",
     password: "",
   });
+  const [user, setUser] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
 
   const navigate = useNavigate();
 
@@ -22,7 +24,7 @@ function SignupPage() {
   const webAuth = new auth0.WebAuth({
     domain: "techtribe.us.auth0.com",
     clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-    redirectUri: "https://melodic-cassata-2af0ea.netlify.app/home", // Redirect URI after successful signup
+    redirectUri: "https://melodic-cassata-2af0ea.netlify.app/home" // Redirect URI after successful signup
   });
 
   async function handleSubmit(e) {
@@ -37,30 +39,51 @@ function SignupPage() {
       }
 
       // Signup the user
-      webAuth.signup(
+      webAuth.signup( 
         {
           connection: "JSON-Validator",
           email: email,
           password: password,
           name: full_name,
         },
-        function (err, result) {
+        function (err) {
           if (err) {
             console.error("Error signing up:", err);
             alert("Error signing up. Please try again later.");
             return;
           }
-
-          // Access the user ID from the result object
-          const userId = result.user_id;
-
-          // Store the user ID in session storage
-          sessionStorage.setItem("userId", userId);
-
+  
           console.log("Signup successful!");
-
-          // Navigate to the home page after successful signup
-          navigate("/home");
+  
+          // Log in the user after successful signup to fetch the user profile data
+          webAuth.login(
+            {
+              realm: "JSON-Validator",
+              username: email,
+              password: password,
+              responseType: "token id_token",
+            },
+            function (err, authResult) {
+              if (err) {
+                console.error("Error logging in:", err);
+                alert("Error logging in. Please check your credentials.");
+                return;
+              }
+  
+              // Fetch user profile data using the accessToken from authResult
+              const accessToken = authResult.accessToken;
+              webAuth.client.userInfo(accessToken, function (err, profile) {
+                if (err) {
+                  console.error("Error fetching user profile:", err);
+                  return;
+                }
+                console.log("User Profile:", profile); // Display user data in the console
+              });
+  
+              // Navigate to the home page after successful signup and login
+              // navigate("/home");
+            }
+          );
         }
       );
     } catch (error) {
@@ -73,7 +96,10 @@ function SignupPage() {
     <>
       <div className="flex justify-center items-center w-full h-[600px]">
         <div className="border- border-[2px] max-w-[500px] w-full  rounded-[20px]">
-          <form onSubmit={handleSubmit} className="max-w-[500px] w-full p-[2px]">
+          <form
+            onSubmit={handleSubmit}
+            className="max-w-[500px] w-full p-[2px]"
+          >
             <div className="bg-sky-500  rounded-[20px] text-white">
               <h3 className="max-w-[250px] w-full items-center text-center font-bold text-[30px] py-4 ">
                 Sign Up
