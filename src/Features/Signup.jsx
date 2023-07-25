@@ -50,7 +50,7 @@ function SignupPage() {
         password: password,
         name: full_name,
       },
-      function (err) {
+      function (err,res) {
         if (err) {
           console.error("Error signing up:", err);
           alert("Error signing up. Please try again later.");
@@ -104,6 +104,7 @@ function SignupPage() {
   };
 
   const handleLogin = (email, password) => {
+
     webAuth.login(
       {
         realm: "JSON-Validator",
