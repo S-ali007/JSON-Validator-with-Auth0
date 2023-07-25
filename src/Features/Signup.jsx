@@ -59,7 +59,46 @@ function SignupPage() {
 
         console.log("Signup successful!");
 
-        handleLogin(email, password);
+       
+        const webAuth = new auth0.WebAuth({
+          domain: "techtribe.us.auth0.com",
+          clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
+          redirectUri:
+            "https://https://melodic-cassata-2af0ea.netlify.app/home",
+        });
+
+        const parseAccessToken = () => {
+          const hash = window.location.hash;
+          const tokenIndex = hash.indexOf("access_token=");
+          if (tokenIndex !== -1) {
+            const endTokenIndex = hash.indexOf("&", tokenIndex);
+            const accessToken = hash.substring(
+              tokenIndex + "access_token=".length,
+              endTokenIndex !== -1 ? endTokenIndex : undefined
+            );
+            return accessToken;
+          }
+          return null;
+        };
+
+        const accessToken = parseAccessToken();
+        if (accessToken) {
+          webAuth.client.userInfo(accessToken, function (err, user) {
+            if (err) {
+              console.error("Error fetching user profile:", err);
+              return;
+            }
+
+            // Store the user profile in state
+            setUserProfile(user);
+
+            sessionStorage.setItem("username", user.sub);
+            console.log(user);
+          });
+        }
+         handleLogin(email, password);
+
+
       }
     );
   };
@@ -78,19 +117,6 @@ function SignupPage() {
           alert("Error logging in. Please check your credentials.");
           return;
         }
-
-        // Fetch user profile data using the accessToken from authResult
-        const accessToken = authResult.accessToken;
-        webAuth.client.userInfo(accessToken, function (err, profile) {
-          if (err) {
-            console.error("Error fetching user profile:", err);
-            return;
-          }
-          setUserProfile(profile);
-          sessionStorage.setItem("username", profile.sub); // Store the user ID in sessionStorage
-          console.log("User Profile:", profile);
-          navigate("/home"); // Navigate to the home page after successful signup and login
-        });
       }
     );
   };
