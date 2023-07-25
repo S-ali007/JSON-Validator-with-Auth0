@@ -21,20 +21,15 @@ function SignupPage() {
     }));
   }
 
-  // useEffect(()=>{
-    
-  // },[])
- 
+  const webAuth = new auth0.WebAuth({
+    domain: "techtribe.us.auth0.com",
+    clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
+    redirectUri: "https://melodic-cassata-2af0ea.netlify.app/home" // Redirect URI after successful signup
+  });
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-
-      const webAuth = new auth0.WebAuth({
-        domain: "techtribe.us.auth0.com",
-        clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-        redirectUri: "https://melodic-cassata-2af0ea.netlify.app/home" // Redirect URI after successful signup
-      });
       const { email, password, full_name } = formData;
 
       // Simple validation check for email
@@ -59,9 +54,6 @@ function SignupPage() {
           }
           alert("Signup successful!");
 
-                        // navigate("/home");
-
-
           // Log in the user after successful signup to fetch the user profile data
           webAuth.login(
             {
@@ -79,47 +71,41 @@ function SignupPage() {
 
               // Navigate to the home page after successful signup and login
               // navigate("/home");
-
-
-              const parseAccessToken = () => {
-                const hash = window.location.hash;
-                const tokenIndex = hash.indexOf("access_token=");
-                if (tokenIndex !== -1) {
-                  const endTokenIndex = hash.indexOf("&", tokenIndex);
-                  const accessToken = hash.substring(
-                    tokenIndex + "access_token=".length,
-                    endTokenIndex !== -1 ? endTokenIndex : undefined
-                  );
-                  return accessToken;
-                }
-                return null;
-              };
-          
-              const accessToken = parseAccessToken();
-              if (accessToken) {
-                webAuth.client.userInfo(accessToken, function (err, user) {
-                  if (err) {
-                    console.error("Error fetching user profile:", err);
-                    return;
-                  }
-          
-                  // Store the user profile in state
-                  setUserProfile(user);
-                  
-                  sessionStorage.setItem("username",user.sub)
-                  console.log(user)
-                });
-              } 
-             
             }
           );
         
-
+            const parseAccessToken = () => {
+              const hash = window.location.hash;
+              const tokenIndex = hash.indexOf("access_token=");
+              if (tokenIndex !== -1) {
+                const endTokenIndex = hash.indexOf("&", tokenIndex);
+                const accessToken = hash.substring(
+                  tokenIndex + "access_token=".length,
+                  endTokenIndex !== -1 ? endTokenIndex : undefined
+                );
+                return accessToken;
+              }
+              return null;
+            };
+        
+            const accessToken = parseAccessToken();
+            if (accessToken) {
+              webAuth.client.userInfo(accessToken, function (err, user) {
+                if (err) {
+                  console.error("Error fetching user profile:", err);
+                  return;
+                }
+        
+                // Store the user profile in state
+                setUserProfile(user);
+                
+                sessionStorage.setItem("username",user.sub)
+                console.log(user)
+              });
+            }
           ;
         }
       );
-       
-   
     } catch (error) {
       // console.error("Error signing up:", error);
       alert(error);
