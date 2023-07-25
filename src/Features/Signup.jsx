@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import auth0 from "auth0-js";
-import { useAuth0 } from "@auth0/auth0-react";
-
 
 function SignupPage() {
   const [formData, setFormData] = useState({
@@ -10,7 +8,6 @@ function SignupPage() {
     email: "",
     password: "",
   });
-  const [user, setUser] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
 
   const navigate = useNavigate();
@@ -26,120 +23,84 @@ function SignupPage() {
   const webAuth = new auth0.WebAuth({
     domain: "techtribe.us.auth0.com",
     clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-    redirectUri: "https://melodic-cassata-2af0ea.netlify.app/home" // Redirect URI after successful signup
+    redirectUri: "https://melodic-cassata-2af0ea.netlify.app/home",
   });
 
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const parseAccessToken = () => {
+    const hash = window.location.hash;
+    const tokenIndex = hash.indexOf("access_token=");
+    if (tokenIndex !== -1) {
+      const endTokenIndex = hash.indexOf("&", tokenIndex);
+      const accessToken = hash.substring(
+        tokenIndex + "access_token=".length,
+        endTokenIndex !== -1 ? endTokenIndex : undefined
+      );
+      return accessToken;
+    }
+    return null;
+  };
 
-  useEffect(() => {
-    const webAuth = new auth0.WebAuth({
-      domain: "techtribe.us.auth0.com",
-      clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-      redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
-    });
-
-    const parseAccessToken = () => {
-      const hash = window.location.hash;
-      const tokenIndex = hash.indexOf("access_token=");
-      if (tokenIndex !== -1) {
-        const endTokenIndex = hash.indexOf("&", tokenIndex);
-        const accessToken = hash.substring(
-          tokenIndex + "access_token=".length,
-          endTokenIndex !== -1 ? endTokenIndex : undefined
-        );
-        return accessToken;
-      }
-      return null;
-    };
-
-    const accessToken = parseAccessToken();
-    if (accessToken) {
-      webAuth.client.userInfo(accessToken, function (err, user) {
+  const handleSignup = (e) => {
+    e.preventDefault();
+    const { email, password, full_name } = formData;
+    webAuth.signup(
+      {
+        connection: "JSON-Validator",
+        email: email,
+        password: password,
+        name: full_name,
+      },
+      function (err) {
         if (err) {
-          console.error("Error fetching user profile:", err);
+          console.error("Error signing up:", err);
+          alert("Error signing up. Please try again later.");
           return;
         }
 
-        // Store the user profile in state
-        setUserProfile(user);
-        
-        sessionStorage.setItem("username",user.sub)
-        console.log(user)
-      });
-    }
-  }, [isAuthenticated, getAccessTokenSilently]);
+        console.log("Signup successful!");
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    try {
-      const { email, password, full_name } = formData;
-
-      // Simple validation check for email
-      if (!email) {
-        alert("Error signing up: Email is required.");
-        return;
+        handleLogin(email, password);
       }
+    );
+  };
 
-      // Signup the user
-      webAuth.signup( 
-        {
-          connection: "JSON-Validator",
-          email: email,
-          password: password,
-          name: full_name,
-        },
-        function (err) {
+  const handleLogin = (email, password) => {
+    webAuth.login(
+      {
+        realm: "JSON-Validator",
+        username: email,
+        password: password,
+        responseType: "token id_token",
+      },
+      function (err, authResult) {
+        if (err) {
+          console.error("Error logging in:", err);
+          alert("Error logging in. Please check your credentials.");
+          return;
+        }
+
+        // Fetch user profile data using the accessToken from authResult
+        const accessToken = authResult.accessToken;
+        webAuth.client.userInfo(accessToken, function (err, profile) {
           if (err) {
-            console.error("Error signing up:", err);
-            alert("Error signing up. Please try again later.");
+            console.error("Error fetching user profile:", err);
             return;
           }
-  
-          console.log("Signup successful!");
-  
-          // Log in the user after successful signup to fetch the user profile data
-          webAuth.login(
-            {
-              realm: "JSON-Validator",
-              username: email,
-              password: password,
-              responseType: "token id_token",
-            },
-            function (err, authResult) {
-              if (err) {
-                console.error("Error logging in:", err);
-                alert("Error logging in. Please check your credentials.");
-                return;
-              }
-  
-              // Fetch user profile data using the accessToken from authResult
-              const accessToken = authResult.accessToken;
-              webAuth.client.userInfo(accessToken, function (err, profile) {
-                if (err) {
-                  console.error("Error fetching user profile:", err);
-                  return;
-                }
-                console.log("User Profile:", profile); // Display user data in the console
-              });
-  
-              // Navigate to the home page after successful signup and login
-              // navigate("/home");
-            }
-          );
-        }
-      );
-    } catch (error) {
-      console.error("Error signing up:", error);
-      alert("Error signing up. Please try again later.");
-    }
-  }
+          setUserProfile(profile);
+          sessionStorage.setItem("username", profile.sub); // Store the user ID in sessionStorage
+          console.log("User Profile:", profile);
+          navigate("/home"); // Navigate to the home page after successful signup and login
+        });
+      }
+    );
+  };
 
   return (
     <>
       <div className="flex justify-center items-center w-full h-[600px]">
         <div className="border- border-[2px] max-w-[500px] w-full  rounded-[20px]">
           <form
-            onSubmit={handleSubmit}
+            onSubmit={handleSignup}
             className="max-w-[500px] w-full p-[2px]"
           >
             <div className="bg-sky-500  rounded-[20px] text-white">

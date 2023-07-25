@@ -9,20 +9,21 @@ function App() {
   const [token, setToken] = useState(null);
   const [data, setdata] = useState("");
 
-  const storedToken = sessionStorage.getItem("username");
 
   useEffect(() => {
+  const storedToken = sessionStorage.getItem("username");
+
     if (storedToken) {
       setToken(storedToken);
     }
-  }, [storedToken]);
+  }, []);
 
   return (    
     <>
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
        <Route path={"/"} element={<LoginPopup setToken={setToken} />} />
-      <Route path={"/home"} element={<All_Components setdata={setdata} />} />
+      {token && <Route path={"/home"} element={<All_Components setdata={setdata} />} />}
         <Route path={"/*"} element={<Page_404 />} />
       </Routes>
     </>
