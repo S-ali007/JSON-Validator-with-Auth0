@@ -53,7 +53,7 @@ function SignupPage() {
             return;
           }
           alert("Signup successful!");
-                        navigate("/home");
+                        // navigate("/home");
 
 
           // Log in the user after successful signup to fetch the user profile data
