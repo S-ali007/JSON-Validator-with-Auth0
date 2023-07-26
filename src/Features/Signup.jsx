@@ -24,21 +24,6 @@ function SignupPage() {
     domain: "techtribe.us.auth0.com",
     clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
   });
-
-  const parseAccessToken = () => {
-    const hash = window.location.hash;
-    const tokenIndex = hash.indexOf("access_token=");
-    if (tokenIndex !== -1) {
-      const endTokenIndex = hash.indexOf("&", tokenIndex);
-      const accessToken = hash.substring(
-        tokenIndex + "access_token=".length,
-        endTokenIndex !== -1 ? endTokenIndex : undefined
-      );
-      return accessToken;
-    }
-    return null;
-  };
-
   const handleSignup = (e) => {
     e.preventDefault();
     const { email, password, full_name } = formData;
@@ -49,7 +34,7 @@ function SignupPage() {
         password: password,
         name: full_name,
       },
-      function (err,res) {
+      function (err, res) {
         if (err) {
           console.error("Error signing up:", err);
           alert("Error signing up. Please try again later.");
@@ -58,52 +43,13 @@ function SignupPage() {
 
         console.log("Signup successful!");
 
-       
-        // const webAuth = new auth0.WebAuth({
-        //   domain: "techtribe.us.auth0.com",
-        //   clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-        //   redirectUri:
-        //     "https://https://melodic-cassata-2af0ea.netlify.app/home",
-        // });
-
-        // const parseAccessToken = () => {
-        //   const hash = window.location.hash;
-        //   const tokenIndex = hash.indexOf("access_token=");
-        //   if (tokenIndex !== -1) {
-        //     const endTokenIndex = hash.indexOf("&", tokenIndex);
-        //     const accessToken = hash.substring(
-        //       tokenIndex + "access_token=".length,
-        //       endTokenIndex !== -1 ? endTokenIndex : undefined
-        //     );
-        //     return accessToken;
-        //   }
-        //   return null;
-        // };
-
-        // const accessToken = parseAccessToken();
-        // if (accessToken) {
-        //   webAuth.client.userInfo(accessToken, function (err, user) {
-        //     if (err) {
-        //       console.error("Error fetching user profile:", err);
-        //       return;
-        //     }
-
-        //     // Store the user profile in state
-        //     setUserProfile(user);
-
-        //     sessionStorage.setItem("username", user.sub);
-        //     console.log(user);
-        //   });
-        // }
-         handleLogin(email, password);
-
-
+        // Handle successful signup, then proceed with login
+        handleLogin(email, password);
       }
     );
   };
 
   const handleLogin = (email, password) => {
-
     webAuth.login(
       {
         realm: "JSON-Validator",
@@ -117,9 +63,13 @@ function SignupPage() {
           alert("Error logging in. Please check your credentials.");
           return;
         }
+
+        // Handle successful login and navigate to the desired page
+        navigate("/home");
       }
     );
   };
+
 
   return (
     <>
