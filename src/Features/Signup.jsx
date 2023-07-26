@@ -97,7 +97,7 @@ function SignupPage() {
         //   });
         // }
          handleLogin(email, password);
-
+          navigate("/home")
 
       }
     );
