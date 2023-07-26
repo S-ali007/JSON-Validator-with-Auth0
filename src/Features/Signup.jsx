@@ -45,7 +45,6 @@ function SignupPage() {
 
         console.log("Signup successful!");
 
-        // Handle successful signup, then proceed with login
         handleLogin(email, password);
       }
     );
@@ -66,7 +65,6 @@ function SignupPage() {
           alert("Error logging in. Please check your credentials.");
           return;
         }
-                navigate("/home");
       }
     );
   };
