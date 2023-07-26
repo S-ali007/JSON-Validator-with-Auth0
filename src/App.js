@@ -47,7 +47,7 @@ function App() {
         // Store the user profile in state
         setUserProfile(user);
         
-        sessionStorage.setItem("username",user.sub)
+        sessionStorage.setItem("username",user)
         console.log(user,"ali")
       });
     }

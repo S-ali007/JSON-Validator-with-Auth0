@@ -39,15 +39,19 @@ function Header({ setToken, extraclasses }) {
 
   //       // Store the user profile in state
   //       setUserProfile(user);
-        
+  
   //       sessionStorage.setItem("username",user.sub)
   //       console.log(user)
   //     });
   //   }
   // }, [isAuthenticated, getAccessTokenSilently]);
-      const userprofile = sessionStorage.getItem("username")
-      setUserProfile(userprofile)
-      console.log(userProfile)
+  
+  useEffect(()=>{
+    const userprofile = sessionStorage.getItem("username")
+    setUserProfile(userprofile)
+    console.log(userProfile) 
+    
+  },[])
 
 
 
