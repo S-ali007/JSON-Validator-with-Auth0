@@ -46,7 +46,7 @@ function App() {
 
         sessionStorage.setItem("username", JSON.stringify(user));
         console.log(user, "ali");
-        if( sessionStorage.setItem("username", JSON.stringify(user))){
+        if( (sessionStorage.setItem("username", JSON.stringify(user)))  !== " " ){
           Navigate("/home")
         }
       });
