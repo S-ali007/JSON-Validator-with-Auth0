@@ -3,10 +3,14 @@ import { useAuth0 } from "@auth0/auth0-react";
 import auth0 from "auth0-js";
 import Button from "./Button";
 import { json } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 function Header({ setToken, extraclasses }) {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [userProfile, setUserProfile] = useState(null);
+  const navigate = useNavigate();
+
 
   // useEffect(() => {
   //   const webAuth = new auth0.WebAuth({
@@ -68,6 +72,7 @@ function Header({ setToken, extraclasses }) {
         redirectUri: "https://melodic-cassata-2af0ea.netlify.app/",
       });
       sessionStorage.clear()
+      navigate("/");
       
     } catch (error) {
       console.error("Error Logging:", error);
