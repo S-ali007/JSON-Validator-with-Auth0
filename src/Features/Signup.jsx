@@ -53,10 +53,6 @@ function SignupPage() {
 
   const handleLogin = (email, password) => {
 
-    const webAuth = new auth0.WebAuth({
-      domain: "techtribe.us.auth0.com",
-      clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-    });
     webAuth.login(
       {
         realm: "JSON-Validator",
@@ -70,9 +66,7 @@ function SignupPage() {
           alert("Error logging in. Please check your credentials.");
           return;
         }
-
-        // Handle successful login and navigate to the desired page
-        navigate("/home");
+                navigate("/home");
       }
     );
   };
