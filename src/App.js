@@ -15,7 +15,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [data, setdata] = useState("");
 
-  useEffect(() => {
+
     const webAuth = new auth0.WebAuth({
       domain: "techtribe.us.auth0.com",
       clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
@@ -51,7 +51,6 @@ function App() {
         console.log(user,"ali")
       });
     }
-  }, [] );
 
   return (    
     <>
