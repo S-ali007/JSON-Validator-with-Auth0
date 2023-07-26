@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, json, useLocation } from "react-router-dom";
 import All_Components from "./Components/All_Components";
 import SignupPage from "./Features/Signup";
 import LoginPopup from "./Features/LoginPopup";
@@ -47,7 +47,7 @@ function App() {
         // Store the user profile in state
         setUserProfile(user);
         
-        sessionStorage.setItem("username",user)
+        sessionStorage.setItem("username",JSON.stringify(user));
         console.log(user,"ali")
       });
     }
