@@ -35,7 +35,7 @@ function LoginPopup({ onClose, setToken }) {
       const webAuth = new auth0.WebAuth({
         domain: "techtribe.us.auth0.com",
         clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-        redirectUri: "https://melodic-cassata-2af0ea.netlify.app/home",
+        
       });
 
       const { email, password } = formData;
@@ -102,14 +102,14 @@ function LoginPopup({ onClose, setToken }) {
                 }
     
                 // Fetch user profile data using the accessToken from authResult
-                const accessToken = authResult.accessToken;
-                webAuth.client.userInfo(accessToken, function (err, profile) {
-                  if (err) {
-                    console.error("Error fetching user profile:", err);
-                    return;
-                  }
-                  console.log("User Profile:", profile); // Display user data in the console
-                });
+                // const accessToken = authResult.accessToken;
+                // webAuth.client.userInfo(accessToken, function (err, profile) {
+                //   if (err) {
+                //     console.error("Error fetching user profile:", err);
+                //     return;
+                //   }
+                //   console.log("User Profile:", profile); // Display user data in the console
+                // });
     
                 // Navigate to the home page after successful signup and login
                 navigate("/home");

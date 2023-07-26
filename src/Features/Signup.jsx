@@ -96,7 +96,7 @@ function SignupPage() {
         //     console.log(user);
         //   });
         // }
-        handleLogin(email, password);
+        // handleLogin(email, password);
       }
     );
   };
