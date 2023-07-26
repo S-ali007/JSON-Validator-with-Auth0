@@ -46,7 +46,7 @@ function App() {
 
         sessionStorage.setItem("username", JSON.stringify(user));
         console.log(user, "ali");
-        if( (sessionStorage.setItem("username", JSON.stringify(user)))  !== " " ){
+        if((JSON.parse(sessionStorage.getItem("username")) )){
           Navigate("/home")
         }
       });
@@ -58,7 +58,7 @@ function App() {
     <>
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
-        {!userProfile &&<Route path={"/"} element={<LoginPopup setToken={setToken} />} />}
+         <Route path={"/"} element={<LoginPopup setToken={setToken} />} />
         <Route
           path={"/home"}
           element={
