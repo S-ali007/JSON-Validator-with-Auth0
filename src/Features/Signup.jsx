@@ -11,6 +11,7 @@ function SignupPage() {
   const [userProfile, setUserProfile] = useState(null);
 
   const navigate = useNavigate();
+  
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -71,7 +72,7 @@ function SignupPage() {
         }
 
         // Handle successful login and navigate to the desired page
-        // navigate("/home");
+        navigate("/home");
       }
     );
   };
