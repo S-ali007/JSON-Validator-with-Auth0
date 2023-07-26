@@ -47,10 +47,10 @@ function Header({ setToken, extraclasses }) {
   // }, [isAuthenticated, getAccessTokenSilently]);
   
   useEffect(()=>{
-    const userprofile = JSON.parse(sessionStorage.getItem("username"))
+    const userInfo = JSON.parse(sessionStorage.getItem("username"))
     
-    console.log(userProfile,'ali1') 
-    setUserProfile(userprofile)
+    console.log(userInfo,'ali007') 
+    setUserProfile(userInfo)
   },[])
 
 
