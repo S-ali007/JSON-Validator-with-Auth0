@@ -10,7 +10,7 @@ function Page_404() {
         We searched everywhere but couldn't find the page you
         were looking for.
       </p>
-      <Link to="/home" className="underline">Go to home Page</Link></div>
+      <Link to="/" className="underline">Go to home Page</Link></div>
     </div>
   );
 }

@@ -56,7 +56,7 @@ function App() {
     <>
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
-        <Route path={"/home"}  element={userProfile ?<All_Components setdata={setdata}/> :<LoginPopup setToken={setToken} />} />
+        <Route path={"/"}  element={userProfile ?<All_Components setdata={setdata}/> :<LoginPopup setToken={setToken} />} />
         <Route path={"/*"} element={<Page_404 />} />
       </Routes>
     </>

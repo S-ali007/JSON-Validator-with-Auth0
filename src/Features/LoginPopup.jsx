@@ -35,6 +35,7 @@ function LoginPopup({ onClose, setToken }) {
       const webAuth = new auth0.WebAuth({
         domain: "techtribe.us.auth0.com",
         clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
+        redirectUri: "https://melodic-cassata-2af0ea.netlify.app/",
         
       });
 
@@ -112,7 +113,7 @@ function LoginPopup({ onClose, setToken }) {
                 // });
     
                 // Navigate to the home page after successful signup and login
-                navigate("/home");
+                navigate("/");
               }
             );
 
