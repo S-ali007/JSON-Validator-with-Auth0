@@ -48,9 +48,9 @@ function Header({ setToken, extraclasses }) {
   
   useEffect(()=>{
     const userprofile = JSON.parse(sessionStorage.getItem("username"))
-    setUserProfile(userprofile)
-    console.log(userProfile) 
     
+    console.log(userProfile,'ali1') 
+    setUserProfile(userprofile)
   },[])
 
 
