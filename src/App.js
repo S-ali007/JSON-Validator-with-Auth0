@@ -54,7 +54,7 @@ function App() {
     <>
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
-        <Route path={"/"} element={<LoginPopup setToken={setToken} />} />
+        {!userProfile &&<Route path={"/"} element={<LoginPopup setToken={setToken} />} />}
         <Route
           path={"/home"}
           element={
