@@ -23,7 +23,6 @@ function SignupPage() {
   const webAuth = new auth0.WebAuth({
     domain: "techtribe.us.auth0.com",
     clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-    redirectUri: "https://melodic-cassata-2af0ea.netlify.app/",
   });
 
   const parseAccessToken = () => {
@@ -57,8 +56,8 @@ function SignupPage() {
           return;
         }
 
-        console.log("Signup successfull2!");
-
+        console.log("Signup successfull!");
+        navigate("/home")
        
         // const webAuth = new auth0.WebAuth({
         //   domain: "techtribe.us.auth0.com",
@@ -97,7 +96,8 @@ function SignupPage() {
         //   });
         // }
          handleLogin(email, password);
-          navigate("/home")
+
+
 
       }
     );
