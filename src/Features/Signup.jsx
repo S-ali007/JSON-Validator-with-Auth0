@@ -65,7 +65,7 @@ function SignupPage() {
         }
 
         // Handle successful login and navigate to the desired page
-        navigate("/home");
+        // navigate("/home");
       }
     );
   };
