@@ -19,7 +19,6 @@ function App() {
     const webAuth = new auth0.WebAuth({
       domain: "techtribe.us.auth0.com",
       clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-      redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
     });
 
     const parseAccessToken = () => {
@@ -57,7 +56,6 @@ function App() {
     <>
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
-        <Route path={"/"} element={<LoginPopup setToken={setToken} />} />
        {userProfile ? <Route path={"/home"} element={<All_Components setdata={setdata} />} />:<Route path={"/"} element={<LoginPopup setToken={setToken} />} />}
         <Route path={"/*"} element={<Page_404 />} />
       </Routes>
