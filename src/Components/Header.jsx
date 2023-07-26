@@ -47,7 +47,7 @@ function Header({ setToken, extraclasses }) {
   // }, [isAuthenticated, getAccessTokenSilently]);
   
   useEffect(()=>{
-    const userprofile = sessionStorage.getItem("username")
+    const userprofile = JSON.parse(sessionStorage.getItem("username"))
     setUserProfile(userprofile)
     console.log(userProfile) 
     
