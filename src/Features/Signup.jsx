@@ -23,6 +23,7 @@ function SignupPage() {
   const webAuth = new auth0.WebAuth({
     domain: "techtribe.us.auth0.com",
     clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
+    redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
   });
 
   const parseAccessToken = () => {
@@ -49,7 +50,7 @@ function SignupPage() {
         password: password,
         name: full_name,
       },
-      function (err,res) {
+      function (err, res) {
         if (err) {
           console.error("Error signing up:", err);
           alert("Error signing up. Please try again later.");
@@ -57,8 +58,8 @@ function SignupPage() {
         }
 
         console.log("Signup successfull!");
-        navigate("/home")
-       
+        navigate("/home");
+
         // const webAuth = new auth0.WebAuth({
         //   domain: "techtribe.us.auth0.com",
         //   clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
@@ -95,32 +96,28 @@ function SignupPage() {
         //     console.log(user);
         //   });
         // }
-         handleLogin(email, password);
-
-
-
+        handleLogin(email, password);
       }
     );
   };
 
-  const handleLogin = (email, password) => {
-
-    webAuth.login(
-      {
-        realm: "JSON-Validator",
-        username: email,
-        password: password,
-        responseType: "token id_token",
-      },
-      function (err, authResult) {
-        if (err) {
-          console.error("Error logging in:", err);
-          alert("Error logging in. Please check your credentials.");
-          return;
-        }
-      }
-    );
-  };
+  // const handleLogin = (email, password) => {
+  //   webAuth.login(
+  //     {
+  //       realm: "JSON-Validator",
+  //       username: email,
+  //       password: password,
+  //       responseType: "token id_token",
+  //     },
+  //     function (err, authResult) {
+  //       if (err) {
+  //         console.error("Error logging in:", err);
+  //         alert("Error logging in. Please check your credentials.");
+  //         return;
+  //       }
+  //     }
+  //   );
+  // };
 
   return (
     <>
