@@ -8,43 +8,48 @@ function Header({ setToken, extraclasses }) {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [userProfile, setUserProfile] = useState(null);
 
-  useEffect(() => {
-    const webAuth = new auth0.WebAuth({
-      domain: "techtribe.us.auth0.com",
-      clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-      redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
-    });
+  // useEffect(() => {
+  //   const webAuth = new auth0.WebAuth({
+  //     domain: "techtribe.us.auth0.com",
+  //     clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
+  //     redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
+  //   });
 
-    const parseAccessToken = () => {
-      const hash = window.location.hash;
-      const tokenIndex = hash.indexOf("access_token=");
-      if (tokenIndex !== -1) {
-        const endTokenIndex = hash.indexOf("&", tokenIndex);
-        const accessToken = hash.substring(
-          tokenIndex + "access_token=".length,
-          endTokenIndex !== -1 ? endTokenIndex : undefined
-        );
-        return accessToken;
-      }
-      return null;
-    };
+  //   const parseAccessToken = () => {
+  //     const hash = window.location.hash;
+  //     const tokenIndex = hash.indexOf("access_token=");
+  //     if (tokenIndex !== -1) {
+  //       const endTokenIndex = hash.indexOf("&", tokenIndex);
+  //       const accessToken = hash.substring(
+  //         tokenIndex + "access_token=".length,
+  //         endTokenIndex !== -1 ? endTokenIndex : undefined
+  //       );
+  //       return accessToken;
+  //     }
+  //     return null;
+  //   };
 
-    const accessToken = parseAccessToken();
-    if (accessToken) {
-      webAuth.client.userInfo(accessToken, function (err, user) {
-        if (err) {
-          console.error("Error fetching user profile:", err);
-          return;
-        }
+  //   const accessToken = parseAccessToken();
+  //   if (accessToken) {
+  //     webAuth.client.userInfo(accessToken, function (err, user) {
+  //       if (err) {
+  //         console.error("Error fetching user profile:", err);
+  //         return;
+  //       }
 
-        // Store the user profile in state
-        setUserProfile(user);
+  //       // Store the user profile in state
+  //       setUserProfile(user);
         
-        sessionStorage.setItem("username",user.sub)
-        console.log(user)
-      });
-    }
-  }, [isAuthenticated, getAccessTokenSilently]);
+  //       sessionStorage.setItem("username",user.sub)
+  //       console.log(user)
+  //     });
+  //   }
+  // }, [isAuthenticated, getAccessTokenSilently]);
+      const userprofile = sessionStorage.getItem("username")
+      setUserProfile(userprofile)
+      console.log(userProfile)
+
+
 
   function handleLogout(e) {
     try {
