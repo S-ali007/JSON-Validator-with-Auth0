@@ -7,21 +7,18 @@ import Page_404 from "./Components/Page_404";
 import { useAuth0 } from "@auth0/auth0-react";
 import auth0 from "auth0-js";
 
-
-
 function App() {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [userProfile, setUserProfile] = useState(null);
   const [token, setToken] = useState(null);
   const [data, setdata] = useState("");
 
-
+  useEffect(() => {
     const webAuth = new auth0.WebAuth({
       domain: "techtribe.us.auth0.com",
       clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
       redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
     });
-
     const parseAccessToken = () => {
       const hash = window.location.hash;
       const tokenIndex = hash.indexOf("access_token=");
@@ -46,18 +43,28 @@ function App() {
 
         // Store the user profile in state
         setUserProfile(user);
-        
-        sessionStorage.setItem("username",JSON.stringify(user));
-        console.log(user,"ali")
+
+        sessionStorage.setItem("username", JSON.stringify(user));
+        console.log(user, "ali");
       });
     }
+  }, []);
 
-  return (    
+  return (
     <>
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
-        <Route path={"/"}  element={<LoginPopup setToken={setToken} />}/>
-        <Route path={"/home"}  element={userProfile ?<All_Components setdata={setdata}/> :<LoginPopup setToken={setToken} />} />
+        <Route path={"/"} element={<LoginPopup setToken={setToken} />} />
+        <Route
+          path={"/home"}
+          element={
+            userProfile ? (
+              <All_Components setdata={setdata} />
+            ) : (
+              <LoginPopup setToken={setToken} />
+            )
+          }
+        />
         <Route path={"/*"} element={<Page_404 />} />
       </Routes>
     </>
