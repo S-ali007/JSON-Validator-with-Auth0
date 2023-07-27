@@ -53,7 +53,7 @@ function App() {
     }
 
     else if (!JSON.parse(sessionStorage.getItem("username"))) {
-      Navigate("/");
+      Navigate("/home");
     }
      }, []);
 
