@@ -70,8 +70,8 @@ function App() {
     <>
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
-        {!userInfo &&<Route path={"/"} element={<LoginPopup setToken={setToken} />} />}
-        <Route path={"/home"} element={<All_Components setdata={setdata} />} />
+        {!userInfo ?<Route path={"/"} element={<LoginPopup setToken={setToken} />} />:<Route path={"/home"} element={<All_Components setdata={setdata} />} />}
+        
         <Route path="/*" element={<Page_404 />} />
       </Routes>
     </>
