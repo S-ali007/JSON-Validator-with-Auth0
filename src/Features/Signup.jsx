@@ -26,7 +26,7 @@ function SignupPage({setloader}) {
     clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
     redirectUri:"https://melodic-cassata-2af0ea.netlify.app/home"
   });
-  
+
   const handleSignup = (e) => {
     e.preventDefault();
     setloader(true);
@@ -47,30 +47,30 @@ function SignupPage({setloader}) {
 
         console.log("Signup successful!");
 
-        handleLogin(email, password);
+        // handleLogin(email, password);
       }
     );
   };
 
-  const handleLogin = (email, password) => {
+  // const handleLogin = (email, password) => {
 
-    webAuth.login(
-      {
-        realm: "JSON-Validator",
-        username: email,
-        password: password,
-        responseType: "token id_token",
-      },
-      function (err, authResult) {
-        if (err) {
-          console.error("Error logging in:", err);
-          alert("Error logging in. Please check your credentials.");
-          return;
-        }
-        // navigate("/home")
-        }
-    );
-  };
+  //   webAuth.login(
+  //     {
+  //       realm: "JSON-Validator",
+  //       username: email,
+  //       password: password,
+  //       responseType: "token id_token",
+  //     },
+  //     function (err, authResult) {
+  //       if (err) {
+  //         console.error("Error logging in:", err);
+  //         alert("Error logging in. Please check your credentials.");
+  //         return;
+  //       }
+  //       // navigate("/home")
+  //       }
+  //   );
+  // };
 
 
   return (
