@@ -26,9 +26,10 @@ function SignupPage({setloader}) {
     clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
     redirectUri:"https://melodic-cassata-2af0ea.netlify.app/home"
   });
+  
   const handleSignup = (e) => {
     e.preventDefault();
-    setloader(true)
+    setloader(true);
     const { email, password, full_name } = formData;
     webAuth.signup(
       {

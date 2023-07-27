@@ -65,6 +65,7 @@ function App() {
     }
   }, []);
 
+  console.log(loader)
   return (
     <>
       <Routes>
