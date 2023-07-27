@@ -12,6 +12,7 @@ import LoginPopup from "./Features/LoginPopup";
 import Page_404 from "./Components/Page_404";
 import { useAuth0 } from "@auth0/auth0-react";
 import auth0 from "auth0-js";
+import AuthComp from "./Features/AuthComp";
 
 function App() {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -73,7 +74,7 @@ function App() {
         <Route path={"/"} element={<LoginPopup setToken={setUserProfile} />} />
        <Route
           path={"/home"}
-          element={<All_Components setdata={setUserProfile} />}
+          element={<AuthComp><All_Components setdata={setUserProfile} /></AuthComp> }
         />
         <Route path={"/*"} element={<Page_404 loader={loader} />} />
       </Routes>
