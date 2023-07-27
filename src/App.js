@@ -46,12 +46,14 @@ function App() {
 
         sessionStorage.setItem("username", JSON.stringify(user));
         console.log(user, "ali");
-        if (!JSON.parse(sessionStorage.getItem("username"))) {
-          Navigate("/");
-        }
+        
       });
+
+      if (!JSON.parse(sessionStorage.getItem("username"))) {
+        Navigate("/");
+      }
     }
-  }, []);
+     }, []);
 
   return (
     <>
