@@ -14,6 +14,8 @@ function App() {
   const [token, setToken] = useState(null);
   const [data, setdata] = useState("");
   const navigate = useNavigate();
+  const userInfo = JSON.parse(sessionStorage.getItem("username"))
+
 
 
   useEffect(() => {
@@ -52,11 +54,15 @@ function App() {
         
       });
 
-      if (sessionStorage.getItem("username")){
-        navigate("/home");
-      }  
+
+    
     
     }
+
+
+    if (!userInfo){
+      navigate("/");
+    }  
      }, []);
 
   return (
@@ -64,7 +70,7 @@ function App() {
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
         <Route path={"/"} element={<LoginPopup setToken={setToken} />} />
-        {userProfile ? <Route path={"/home"} element={<All_Components setdata={setdata} />} /> :''}
+        {userInfo ? <Route path={"/home"} element={<All_Components setdata={setdata} />} /> :''}
         <Route path="/*" element={<Page_404 />} />
       </Routes>
     </>
