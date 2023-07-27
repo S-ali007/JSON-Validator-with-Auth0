@@ -16,8 +16,6 @@ function App() {
   const navigate = useNavigate();
   const userdata = JSON.parse(sessionStorage.getItem("username"))
 
-
-
   useEffect(() => {
     const webAuth = new auth0.WebAuth({
       domain: "techtribe.us.auth0.com",
