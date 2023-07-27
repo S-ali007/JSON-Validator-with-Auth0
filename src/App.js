@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, Route, Routes, json, useLocation } from "react-router-dom";
+import { useNavigate, Route, Routes, json, useLocation } from "react-router-dom";
+
 import All_Components from "./Components/All_Components";
 import SignupPage from "./Features/Signup";
 import LoginPopup from "./Features/LoginPopup";
@@ -12,6 +13,8 @@ function App() {
   const [userProfile, setUserProfile] = useState(null);
   const [token, setToken] = useState(null);
   const [data, setdata] = useState("");
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const webAuth = new auth0.WebAuth({
@@ -49,11 +52,10 @@ function App() {
         
       });
 
-      
-    }
-
-    else if (!JSON.parse(sessionStorage.getItem("username"))) {
-      Navigate("/home");
+      if (sessionStorage.getItem("username")){
+        navigate("/home");
+      }  
+    
     }
      }, []);
 
@@ -62,7 +64,7 @@ function App() {
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
         <Route path={"/"} element={<LoginPopup setToken={setToken} />} />
-        <Route path={"/home"} element={<All_Components setdata={setdata} />} />
+        {userProfile ? <Route path={"/home"} element={<All_Components setdata={setdata} />} /> :''}
         <Route path="/*" element={<Page_404 />} />
       </Routes>
     </>
