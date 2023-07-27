@@ -66,9 +66,9 @@ function App() {
     <>
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
-        <Route path={"/"} element={<LoginPopup setToken={setUserProfile} />} />
+        <Route path={"/login"} element={<LoginPopup setToken={setUserProfile} />} />
         {uData &&<Route
-          path={"/home"}
+          path={"/"}
           element={<All_Components setdata={setUserProfile} />}
         />}
         <Route path={"/*"} element={<Page_404 />} />
