@@ -49,9 +49,11 @@ function App() {
         
       });
 
-      if (!JSON.parse(sessionStorage.getItem("username"))) {
-        Navigate("/");
-      }
+      
+    }
+
+    else if (!JSON.parse(sessionStorage.getItem("username"))) {
+      Navigate("/");
     }
      }, []);
 
