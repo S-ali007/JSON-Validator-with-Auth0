@@ -49,8 +49,8 @@ function App() {
         
       });
 
-      if (!JSON.parse(sessionStorage.getItem("username"))) {
-        Navigate("/");
+      if (JSON.parse(sessionStorage.getItem("username"))) {
+        Navigate("/home");
       }
     }
      }, []);
