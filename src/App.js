@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, Route, Routes, json, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import All_Components from "./Components/All_Components";
 import SignupPage from "./Features/Signup";
 import LoginPopup from "./Features/LoginPopup";
@@ -13,12 +13,15 @@ function App() {
   const [token, setToken] = useState(null);
   const [data, setdata] = useState("");
 
+  const location = useLocation();
+
   useEffect(() => {
     const webAuth = new auth0.WebAuth({
       domain: "techtribe.us.auth0.com",
       clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-      redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
+      redirectUri: "https://melodic-cassata-2af0ea.netlify.app/home",
     });
+
     const parseAccessToken = () => {
       const hash = window.location.hash;
       const tokenIndex = hash.indexOf("access_token=");
@@ -46,14 +49,20 @@ function App() {
 
         sessionStorage.setItem("username", JSON.stringify(user));
         console.log(user, "ali");
-        
       });
 
-      if (!JSON.parse(sessionStorage.getItem("username"))) {
-        Navigate("/home");
+      if (!sessionStorage.getItem("username")) {
+        Navigate("/");
       }
     }
-     }, []);
+
+    // Access and store data from URL parameters in session storage
+    const params = new URLSearchParams(location.search); // Get URLSearchParams from the location object
+    const yourDataParam = params.get("yourData"); // Replace "yourData" with the actual parameter name you expect
+    if (yourDataParam) {
+      sessionStorage.setItem("yourData", yourDataParam);
+    }
+  }, [location.search]); // Include location.search in the dependencies array
 
   return (
     <>
