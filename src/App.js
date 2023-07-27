@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  useNavigate,
-  Route,
-  Routes,
-  json,
-  useLocation,
-} from "react-router-dom";
+import { useNavigate, Route, Routes, json, useLocation } from "react-router-dom";
 
 import All_Components from "./Components/All_Components";
 import SignupPage from "./Features/Signup";
@@ -20,13 +14,15 @@ function App() {
   const [token, setToken] = useState(null);
   const [data, setdata] = useState("");
   const navigate = useNavigate();
-  const userInfo = JSON.parse(sessionStorage.getItem("username"));
+  const userInfo = JSON.parse(sessionStorage.getItem("username"))
+
+
 
   useEffect(() => {
     const webAuth = new auth0.WebAuth({
       domain: "techtribe.us.auth0.com",
       clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-      redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
+      // redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
     });
     const parseAccessToken = () => {
       const hash = window.location.hash;
@@ -55,27 +51,26 @@ function App() {
 
         sessionStorage.setItem("username", JSON.stringify(user));
         console.log(user, "ali");
+        
       });
+
+
+    
+    
     }
 
-    // if (userInfo) {
-    //   navigate("/home");
-    // }
-  }, []);
+
+    if (!userInfo){
+      navigate("/home");
+    }  
+     }, []);
 
   return (
     <>
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
-        {!userInfo ? (
-          <Route path={"/"} element={<LoginPopup setToken={setToken} />} />
-        ) : (
-          <Route
-            path={"/home"}
-            element={<All_Components setdata={setdata} />}
-          />
-        )}
-
+        <Route path={"/"} element={<LoginPopup setToken={setToken} />} />
+        <Route path={"/home"} element={<All_Components setdata={setdata} />} />
         <Route path="/*" element={<Page_404 />} />
       </Routes>
     </>
