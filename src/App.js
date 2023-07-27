@@ -21,6 +21,9 @@ function App() {
   const navigate = useNavigate();
   const uData =JSON.parse(sessionStorage.getItem("username"))
 
+  const [loader, setloader] = useState(false);
+
+
   useEffect(() => {
     const webAuth = new auth0.WebAuth({
       domain: "techtribe.us.auth0.com",
@@ -65,13 +68,13 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path={"/signup"} element={<SignupPage />} />
+        <Route path={"/signup"} element={<SignupPage setloader={setloader} />} />
         <Route path={"/"} element={<LoginPopup setToken={setUserProfile} />} />
         {uData &&<Route
           path={"/home"}
           element={<All_Components setdata={setUserProfile} />}
         />}
-        {/* <Route path={"/*"} element={<Page_404 />} /> */}
+        <Route path={"/*"} element={<Page_404 loader={loader} />} />
       </Routes>
     </>
   );

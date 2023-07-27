@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Page_404() {
+function Page_404({loader}) {
+  if(loader){
+    return <h1>loading...</h1>
+  }
   return (
     <div className="flex justify-center items-center w-full h-[600px]  ">
         <div className="flex flex-col gap-4">

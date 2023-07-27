@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import auth0 from "auth0-js";
 
-function SignupPage() {
+function SignupPage({setloader}) {
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
@@ -28,6 +28,7 @@ function SignupPage() {
   });
   const handleSignup = (e) => {
     e.preventDefault();
+    setloader(true)
     const { email, password, full_name } = formData;
     webAuth.signup(
       {
