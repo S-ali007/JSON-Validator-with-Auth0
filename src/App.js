@@ -56,7 +56,7 @@ function App() {
 
       if (!JSON.parse(sessionStorage.getItem("username"))) {
         navigate("/home");
-        console.log("xxxxxxxx")
+        console.log("xxxxxxgxx")
       }
     }
   }, []);
@@ -66,10 +66,10 @@ function App() {
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
         <Route path={"/"} element={<LoginPopup setToken={setUserProfile} />} />
-        <Route
+        {userProfile &&<Route
           path={"/home"}
           element={<All_Components setdata={setUserProfile} />}
-        />
+        />}
         <Route path="/*" element={<Page_404 />} />
       </Routes>
     </>
