@@ -32,7 +32,7 @@ function App() {
     });
     const parseAccessToken = () => {
       const hash = window.location.hash;
-      const tokenIndex = hash.indexOf("access_token=");
+      const tokenIndex = hash.indexOf("#access_token=");
       if (tokenIndex !== -1) {
         const endTokenIndex = hash.indexOf("&", tokenIndex);
         const accessToken = hash.substring(
