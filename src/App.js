@@ -49,11 +49,13 @@ function App() {
         console.log(user, "ali");
       });
 
-      if (!JSON.parse(sessionStorage.getItem("username"))) {
-        navigate("/home");
-      }
+     
     }
   }, []);
+
+  if (JSON.parse(sessionStorage.getItem("username"))) {
+    navigate("/home");
+  }
 
   return (
     <>
