@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Route, Routes, json, useLocation } from "react-router-dom";
+import {
+  useNavigate,
+  Route,
+  Routes,
+  json,
+  useLocation,
+} from "react-router-dom";
 
 import All_Components from "./Components/All_Components";
 import SignupPage from "./Features/Signup";
@@ -14,9 +20,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [data, setdata] = useState("");
   const navigate = useNavigate();
-  const userInfo = JSON.parse(sessionStorage.getItem("username"))
-
-
+  const userInfo = JSON.parse(sessionStorage.getItem("username"));
 
   useEffect(() => {
     const webAuth = new auth0.WebAuth({
@@ -51,27 +55,27 @@ function App() {
 
         sessionStorage.setItem("username", JSON.stringify(user));
         console.log(user, "ali");
-        
       });
-
-
-    
-    
     }
 
-
-    if (userInfo){
+    if (userInfo) {
       navigate("/home");
-    } 
-   
-     }, []);
+    }
+  }, []);
 
   return (
     <>
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
-        {!userInfo ?<Route path={"/"} element={<LoginPopup setToken={setToken} />} />:<Route path={"/home"} element={<All_Components setdata={setdata} />} />}
-        
+        {!userInfo ? (
+          <Route path={"/"} element={<LoginPopup setToken={setToken} />} />
+        ) : (
+          <Route
+            path={"/home"}
+            element={<All_Components setdata={setdata} />}
+          />
+        )}
+
         <Route path="/*" element={<Page_404 />} />
       </Routes>
     </>

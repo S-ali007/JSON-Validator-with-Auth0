@@ -63,7 +63,7 @@ function Header({ setToken, extraclasses }) {
       const webAuth = new auth0.WebAuth({
         domain: "techtribe.us.auth0.com",
         clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-        redirectUri: "https://melodic-cassata-2af0ea.netlify.app/",
+       
       });
 
       webAuth.logout({
@@ -72,7 +72,7 @@ function Header({ setToken, extraclasses }) {
         redirectUri: "https://melodic-cassata-2af0ea.netlify.app/",
       });
       sessionStorage.clear()
-      navigate("/");
+      
       
     } catch (error) {
       console.error("Error Logging:", error);
