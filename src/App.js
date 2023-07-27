@@ -14,7 +14,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [data, setdata] = useState("");
   const navigate = useNavigate();
-  const userInfo = JSON.parse(sessionStorage.getItem("username"))
+  const userdata = JSON.parse(sessionStorage.getItem("username"))
 
 
 
@@ -22,7 +22,7 @@ function App() {
     const webAuth = new auth0.WebAuth({
       domain: "techtribe.us.auth0.com",
       clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-      // redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
+      redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
     });
     const parseAccessToken = () => {
       const hash = window.location.hash;
@@ -60,7 +60,7 @@ function App() {
     }
 
 
-    if (!userInfo){
+    if (!userdata){
       navigate("/");
     }  
      }, []);
