@@ -63,16 +63,14 @@ function App() {
     if (userInfo){
       navigate("/home");
     } 
-    else{
-      navigate("/");
-    } 
+   
      }, []);
 
   return (
     <>
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
-        <Route path={"/"} element={<LoginPopup setToken={setToken} />} />
+        {!userInfo &&<Route path={"/"} element={<LoginPopup setToken={setToken} />} />}
         <Route path={"/home"} element={<All_Components setdata={setdata} />} />
         <Route path="/*" element={<Page_404 />} />
       </Routes>
