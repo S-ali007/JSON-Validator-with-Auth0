@@ -50,7 +50,7 @@ function App() {
       });
 
       if (!JSON.parse(sessionStorage.getItem("username"))) {
-        Navigate("/");
+        Navigate("/home");
       }
     }
      }, []);
