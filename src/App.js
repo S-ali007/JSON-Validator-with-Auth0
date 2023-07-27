@@ -61,7 +61,7 @@ function App() {
 
 
     if (!userInfo){
-      navigate("/");
+      navigate("/home");
     }  
      }, []);
 
