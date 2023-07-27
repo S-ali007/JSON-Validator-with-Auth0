@@ -19,6 +19,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [data, setdata] = useState("");
   const navigate = useNavigate();
+  const uData =JSON.parse(sessionStorage.getItem("username"))
 
   useEffect(() => {
     const webAuth = new auth0.WebAuth({
@@ -54,7 +55,7 @@ function App() {
         console.log(user, "ali");
       });
 
-      if (!JSON.parse(sessionStorage.getItem("username"))) {
+      if (uData) {
         navigate("/home");
         console.log("xxxxxxgxx")
       }
@@ -66,7 +67,7 @@ function App() {
       <Routes>
         <Route path={"/signup"} element={<SignupPage />} />
         <Route path={"/"} element={<LoginPopup setToken={setUserProfile} />} />
-        {userProfile &&<Route
+        {uData &&<Route
           path={"/home"}
           element={<All_Components setdata={setUserProfile} />}
         />}
