@@ -60,9 +60,12 @@ function App() {
     }
 
 
-    if (!userInfo){
+    if (userInfo){
       navigate("/home");
-    }  
+    } 
+    else{
+      navigate("/");
+    } 
      }, []);
 
   return (
