@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import auth0 from "auth0-js";
 import { User } from "@auth0/auth0-react";
-import { Routes, Route, useParams,useNavigate } from 'react-router-dom';
-
+import { Routes, Route, useParams, useNavigate } from "react-router-dom";
 
 function LoginPopup({ onClose, setToken }) {
   const [formData, setFormData] = useState({
@@ -15,8 +14,6 @@ function LoginPopup({ onClose, setToken }) {
   const [userProfile, setUserProfile] = useState(null);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
-
-
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -36,16 +33,15 @@ function LoginPopup({ onClose, setToken }) {
         domain: "techtribe.us.auth0.com",
         clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
         redirectUri: "https://melodic-cassata-2af0ea.netlify.app/home",
-        
       });
 
       const { email, password } = formData;
       webAuth.login(
         {
-          connection:"JSON-Validator",
+          connection: "JSON-Validator",
           username: email,
           password: password,
-          responseType: "token", 
+          responseType: "token",
         },
         async function (err, authResult) {
           setLoading(false);
@@ -53,7 +49,7 @@ function LoginPopup({ onClose, setToken }) {
           if (err) {
             console.error("Error logging in:", err);
             setLoginError("Error logging in. Please check your credentials.");
-            alert(err.description)
+            alert(err.description);
             return;
           }
 
@@ -70,7 +66,7 @@ function LoginPopup({ onClose, setToken }) {
             }
             return null;
           };
-      
+
           const accessToken = parseAccessToken();
           if (accessToken) {
             webAuth.client.userInfo(accessToken, function (err, user) {
@@ -78,57 +74,50 @@ function LoginPopup({ onClose, setToken }) {
                 console.error("Error fetching user profile:", err);
                 return;
               }
-      
+
               // Store the user profile in state
               setUserProfile(user);
-              
-              sessionStorage.setItem("username",user.sub)
-              console.log(user)
+
+              sessionStorage.setItem("username", user.sub);
+              console.log(user);
             });
           }
 
-            // // After successful signup, login the user to get the accessToken
-            webAuth.login(
-              {
-                connection: "JSON-Validator",
-                username: email,
-                password: password,
-                
-              },
-              function (err, authResult) {
-                if (err) {
-                  console.error("Error logging in:", err.code);
-                  alert("Error logging in. Please check your credentials.");
-                  return;
-                }
-    
-                // Fetch user profile data using the accessToken from authResult
-                // const accessToken = authResult.accessToken;
-                // webAuth.client.userInfo(accessToken, function (err, profile) {
-                //   if (err) {
-                //     console.error("Error fetching user profile:", err);
-                //     return;
-                //   }
-                //   console.log("User Profile:", profile); // Display user data in the console
-                // });
-    
-                // Navigate to the home page after successful signup and login
-                navigate("/");
+          // // After successful signup, login the user to get the accessToken
+          webAuth.login(
+            {
+              connection: "JSON-Validator",
+              username: email,
+              password: password,
+            },
+            function (err, authResult) {
+              if (err) {
+                console.error("Error logging in:", err.code);
+                alert("Error logging in. Please check your credentials.");
+                return;
               }
-            );
 
-      
+              // Fetch user profile data using the accessToken from authResult
+              // const accessToken = authResult.accessToken;
+              // webAuth.client.userInfo(accessToken, function (err, profile) {
+              //   if (err) {
+              //     console.error("Error fetching user profile:", err);
+              //     return;
+              //   }
+              //   console.log("User Profile:", profile); // Display user data in the console
+              // });
 
+              // Navigate to the home page after successful signup and login
+              navigate("/");
+            }
+          );
         }
       );
-      
     } catch (error) {
       console.error("Error logging in:", error);
       setLoginError("Error logging in. Please try again later.");
     }
   }
-
-
 
   return (
     <>
@@ -177,7 +166,9 @@ function LoginPopup({ onClose, setToken }) {
                 </button>
               </div>
               {loginError && (
-                <div className="text-red-600 mt-2 text-center">{loginError}</div>
+                <div className="text-red-600 mt-2 text-center">
+                  {loginError}
+                </div>
               )}
               {userProfile && (
                 <div className="text-green-600 mt-2 text-center">
@@ -188,7 +179,9 @@ function LoginPopup({ onClose, setToken }) {
           </form>
           <div className="flex items-center justify-center">
             <Link to="/Signup">
-              <button className="mt-4">Not Have an Account ? Sign up now</button>
+              <button className="mt-4">
+                Not Have an Account ? Sign up now
+              </button>
             </Link>
           </div>
         </div>

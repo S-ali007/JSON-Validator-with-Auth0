@@ -72,7 +72,7 @@ function Header({ setToken, extraclasses }) {
         redirectUri: "https://melodic-cassata-2af0ea.netlify.app/",
       });
       sessionStorage.clear()
-        
+      
       
     } catch (error) {
       console.error("Error Logging:", error);
