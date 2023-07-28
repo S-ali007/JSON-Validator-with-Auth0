@@ -20,16 +20,15 @@ function App() {
   const [token, setToken] = useState(null);
   const [data, setdata] = useState("");
   const navigate = useNavigate();
-  const uData =JSON.parse(sessionStorage.getItem("username"))
+  const uData = JSON.parse(sessionStorage.getItem("username"));
 
   const [loader, setloader] = useState(false);
-
 
   useEffect(() => {
     const webAuth = new auth0.WebAuth({
       domain: "techtribe.us.auth0.com",
       clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-      redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
+      // redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
     });
     const parseAccessToken = () => {
       const hash = window.location.hash;
@@ -61,20 +60,27 @@ function App() {
 
       if (uData) {
         // navigate("/home");
-        console.log("xxxxxxgxx")
+        console.log("xxxxxxgxx");
       }
     }
   }, []);
 
-  console.log(loader)
+  console.log(loader);
   return (
     <>
       <Routes>
-        <Route path={"/signup"} element={<SignupPage setloader={setloader} />} />
+        <Route
+          path={"/signup"}
+          element={<SignupPage setloader={setloader} />}
+        />
         <Route path={"/"} element={<LoginPopup setToken={setUserProfile} />} />
-       <Route
+        <Route
           path={"/home"}
-          element={<AuthComp><All_Components setdata={setUserProfile} /></AuthComp> }
+          element={
+            <AuthComp>
+              <All_Components setdata={setUserProfile} />
+            </AuthComp>
+          }
         />
         <Route path={"/*"} element={<Page_404 loader={loader} />} />
       </Routes>
