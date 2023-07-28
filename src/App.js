@@ -220,18 +220,16 @@ function App() {
               return;
             }
     
-            // Store the user profile in state
             setUserProfile(user);
             sessionStorage.setItem("username", JSON.stringify(user));
             console.log(user, "ali");
           });
     
           if (uData) {
-            // navigate("/home");
             console.log("xxxxxxgxx");
           }
         }
-      }, [loader]);
+      }, [userProfile]);
 
 
 
