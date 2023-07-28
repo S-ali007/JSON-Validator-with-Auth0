@@ -13,7 +13,7 @@ function AuthComp({children}) {
             
         }
         else{
-           return <Navigate to='/'/>
+           return <Navigate to='/home'/>
         }
 
 }

@@ -20,18 +20,17 @@ function App() {
   const [token, setToken] = useState(null);
   const [data, setdata] = useState("");
   const navigate = useNavigate();
-  const uData = JSON.parse(sessionStorage.getItem("username"));
+  const uData =JSON.parse(sessionStorage.getItem("username"))
 
   const [loader, setloader] = useState(false);
 
-  useEffect((email,password) => {
+
+  useEffect(() => {
     const webAuth = new auth0.WebAuth({
       domain: "techtribe.us.auth0.com",
       clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
       redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
     });
-
-    
     const parseAccessToken = () => {
       const hash = window.location.hash;
       const tokenIndex = hash.indexOf("access_token=");
@@ -62,55 +61,20 @@ function App() {
 
       if (uData) {
         // navigate("/home");
-        console.log("xxxxxxgxx");
+        console.log("xxxxxxgxx")
       }
-      
     }
-    handleLogin(email, password);
   }, []);
 
-
-  const handleLogin = (email, password) => {
-    const webAuth = new auth0.WebAuth({
-      domain: "techtribe.us.auth0.com",
-      clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-      redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
-    });
-
-    webAuth.login(
-      {
-        realm: "JSON-Validator",
-        username: email,
-        password: password,
-        responseType: "token id_token",
-      },
-      function (err, authResult) {
-        if (err) {
-          console.error("Error logging in:", err);
-          alert("Error logging in. Please check your credentials.");
-          return;
-        }
-        // navigate("/home")
-        }
-    );
-  };
-
-  console.log(loader);
+  console.log(loader)
   return (
     <>
       <Routes>
-        <Route
-          path={"/signup"}
-          element={<SignupPage setloader={setloader} />}
-        />
+        <Route path={"/signup"} element={<SignupPage setloader={setloader} />} />
         <Route path={"/"} element={<LoginPopup setToken={setUserProfile} />} />
-        <Route
+       <Route
           path={"/home"}
-          element={
-            <AuthComp>
-              <All_Components setdata={setUserProfile} />
-            </AuthComp>
-          }
+          element={<AuthComp><All_Components setdata={setUserProfile} /></AuthComp> }
         />
         <Route path={"/*"} element={<Page_404 loader={loader} />} />
       </Routes>
