@@ -24,12 +24,14 @@ function App() {
 
   const [loader, setloader] = useState(false);
 
-  useEffect(() => {
+  useEffect((email,password) => {
     const webAuth = new auth0.WebAuth({
       domain: "techtribe.us.auth0.com",
       clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-      // redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
+      redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
     });
+
+    
     const parseAccessToken = () => {
       const hash = window.location.hash;
       const tokenIndex = hash.indexOf("access_token=");
@@ -62,8 +64,36 @@ function App() {
         // navigate("/home");
         console.log("xxxxxxgxx");
       }
+      
     }
+    handleLogin(email, password);
   }, []);
+
+
+  const handleLogin = (email, password) => {
+    const webAuth = new auth0.WebAuth({
+      domain: "techtribe.us.auth0.com",
+      clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
+      redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
+    });
+
+    webAuth.login(
+      {
+        realm: "JSON-Validator",
+        username: email,
+        password: password,
+        responseType: "token id_token",
+      },
+      function (err, authResult) {
+        if (err) {
+          console.error("Error logging in:", err);
+          alert("Error logging in. Please check your credentials.");
+          return;
+        }
+        // navigate("/home")
+        }
+    );
+  };
 
   console.log(loader);
   return (
