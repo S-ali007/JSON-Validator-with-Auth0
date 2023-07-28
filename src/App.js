@@ -170,7 +170,6 @@
 
 // export default App;
 
-
 // App.js
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -179,24 +178,26 @@ import All_Components from "./Components/All_Components";
 import SignupPage from "./Features/Signup";
 import LoginPopup from "./Features/LoginPopup";
 import Page_404 from "./Components/Page_404";
-import AuthComp from "./Features/AuthComp"; 
 
 const domain = "techtribe.us.auth0.com";
 const clientId = "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY";
 
 function App() {
+  const [loader, setloader] = React.useState(false); // Define the setloader function here
+
   return (
     <Auth0Provider domain={domain} clientId={clientId} redirectUri={window.location.origin}>
       
         <Routes>
           <Route path="/" element={<LoginPopup />} />
-          <Route path="/signup" element={<SignupPage />} />
-        <Route path="/home" element={All_Components} />
+          <Route path="/signup" element={<SignupPage setloader={setloader} />} /> {/* Pass setloader as a prop */}
+          <Route path="/home" element={<All_Components />} />
           <Route path="/*" element={<Page_404 />} />
         </Routes>
-    
+     
     </Auth0Provider>
   );
 }
 
 export default App;
+
