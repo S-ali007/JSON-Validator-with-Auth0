@@ -124,50 +124,79 @@
 
 
 
+// App.js--------------------------3
+// import React from "react";
+// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+// import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
+// import All_Components from "./Components/All_Components";
+// import SignupPage from "./Features/SignupPage";
+// import LoginPopup from "./Features/LoginPopup";
+// import Page_404 from "./Components/Page_404";
+
+// const domain = "techtribe.us.auth0.com";
+// const clientId = "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY";
+
+// // PrivateRoute component for protected routes
+// function PrivateRoute({ children, ...rest }) {
+//   const { isAuthenticated } = useAuth0();
+//   return (
+//     <Route
+//       {...rest}
+//       render={({ location }) =>
+//         isAuthenticated ? (
+//           children
+//         ) : (
+//           <LoginPopup redirectTo={location.pathname} />
+//         )
+//       }
+//     />
+//   );
+// }
+
+// function App() {
+//   return (
+//     <Auth0Provider domain={domain} clientId={clientId} redirectUri={window.location.origin}>
+//       <Router>
+//         <Routes>
+//           <Route path="/" element={<LoginPopup />} />
+//           <Route path="/signup" element={<SignupPage />} />
+//           <PrivateRoute path="/home" element={<All_Components />} />
+//           <Route path="/*" element={<Page_404 />} />
+//         </Routes>
+//       </Router>
+//     </Auth0Provider>
+//   );
+// }
+
+// export default App;
+
+
 // App.js
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
+import { Auth0Provider } from "@auth0/auth0-react";
 import All_Components from "./Components/All_Components";
-import SignupPage from "./Features/SignupPage";
+import SignupPage from "./Features/Signup";
 import LoginPopup from "./Features/LoginPopup";
 import Page_404 from "./Components/Page_404";
+import AuthComp from "./Features/AuthComp"; 
 
 const domain = "techtribe.us.auth0.com";
 const clientId = "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY";
 
-// PrivateRoute component for protected routes
-function PrivateRoute({ children, ...rest }) {
-  const { isAuthenticated } = useAuth0();
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        isAuthenticated ? (
-          children
-        ) : (
-          <LoginPopup redirectTo={location.pathname} />
-        )
-      }
-    />
-  );
-}
-
 function App() {
   return (
     <Auth0Provider domain={domain} clientId={clientId} redirectUri={window.location.origin}>
-      <Router>
+      
         <Routes>
           <Route path="/" element={<LoginPopup />} />
           <Route path="/signup" element={<SignupPage />} />
-          <PrivateRoute path="/home" element={<All_Components />} />
+        <Route path="/home" element={All_Components} />
           <Route path="/*" element={<Page_404 />} />
         </Routes>
-      </Router>
+    
     </Auth0Provider>
   );
 }
 
 export default App;
-
-

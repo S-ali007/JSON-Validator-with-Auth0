@@ -1,66 +1,92 @@
-import React, { useEffect,useState } from 'react'
-import { Navigate } from 'react-router-dom'
-import auth0 from "auth0-js";
+// import React, { useEffect,useState } from 'react'
+// import { Navigate } from 'react-router-dom'
+// import auth0 from "auth0-js";
 
 
 
-function AuthComp({children}) {
+// function AuthComp({children}) {
 
-    // const [userProfile, setUserProfile] = useState(null);
+//     // const [userProfile, setUserProfile] = useState(null);
 
-    // useEffect(()=>{
-    //     const webAuth = new auth0.WebAuth({
-    //         domain: "techtribe.us.auth0.com",
-    //       clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-    //       redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
-    //     });
-    //     const parseAccessToken = () => {
-    //       const hash = window.location.hash;
-    //       const tokenIndex = hash.indexOf("access_token=");
-    //       if (tokenIndex !== -1) {
-    //         const endTokenIndex = hash.indexOf("&", tokenIndex);
-    //         const accessToken = hash.substring(
-    //           tokenIndex + "access_token=".length,
-    //           endTokenIndex !== -1 ? endTokenIndex : undefined
-    //         );
-    //         return accessToken;
-    //       }
-    //       return null;
-    //     };
+//     // useEffect(()=>{
+//     //     const webAuth = new auth0.WebAuth({
+//     //         domain: "techtribe.us.auth0.com",
+//     //       clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
+//     //       redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
+//     //     });
+//     //     const parseAccessToken = () => {
+//     //       const hash = window.location.hash;
+//     //       const tokenIndex = hash.indexOf("access_token=");
+//     //       if (tokenIndex !== -1) {
+//     //         const endTokenIndex = hash.indexOf("&", tokenIndex);
+//     //         const accessToken = hash.substring(
+//     //           tokenIndex + "access_token=".length,
+//     //           endTokenIndex !== -1 ? endTokenIndex : undefined
+//     //         );
+//     //         return accessToken;
+//     //       }
+//     //       return null;
+//     //     };
     
-    //     const accessToken = parseAccessToken();
-    //     if (accessToken) {
-    //       webAuth.client.userInfo(accessToken, function (err, user) {
-    //         if (err) {
-    //           console.error("Error fetching user profile:", err);
-    //           return;
-    //         }
+//     //     const accessToken = parseAccessToken();
+//     //     if (accessToken) {
+//     //       webAuth.client.userInfo(accessToken, function (err, user) {
+//     //         if (err) {
+//     //           console.error("Error fetching user profile:", err);
+//     //           return;
+//     //         }
     
-    //         // Store the user profile in state
-    //         setUserProfile(user);
-    //         sessionStorage.setItem("username", JSON.stringify(user));
-    //         console.log(user, "ali");
-    //         console.log(sessionStorage.getItem("username"),`sessionStorage.getItem("username")`)
-    //       });
+//     //         // Store the user profile in state
+//     //         setUserProfile(user);
+//     //         sessionStorage.setItem("username", JSON.stringify(user));
+//     //         console.log(user, "ali");
+//     //         console.log(sessionStorage.getItem("username"),`sessionStorage.getItem("username")`)
+//     //       });
           
-    //       if (uData) {
-    //         // navigate("/home");
-    //         console.log("xxxxxxgxx")
-    //       }
-    //     }
+//     //       if (uData) {
+//     //         // navigate("/home");
+//     //         console.log("xxxxxxgxx")
+//     //       }
+//     //     }
         
-    // },[])
-    const uData =JSON.parse(sessionStorage.getItem("username"))
+//     // },[])
+//     const uData =JSON.parse(sessionStorage.getItem("username"))
   
-    console.log(uData)
-        if(uData){
-            return children
+//     console.log(uData)
+//         if(uData){
+//             return children
             
-        }
-        else{
-           return <Navigate to='/home'/>
-        }
+//         }
+//         else{
+//            return <Navigate to='/home'/>
+//         }
 
+// }
+
+// export default AuthComp
+
+
+// PrivateRoute.js
+import React from "react";
+import { Route, Navigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+
+function AuthComp({ element: Component, redirectTo = "/", ...rest }) {
+  const { isAuthenticated } = useAuth0();
+
+  return (
+    <Route
+      {...rest}
+      element={
+        isAuthenticated ? (
+          <Component />
+        ) : (
+          <Navigate to={redirectTo} state={{ from: rest.location }} />
+        )
+      }
+    />
+  );
 }
 
-export default AuthComp
+export default AuthComp;
+
