@@ -229,7 +229,7 @@ function App() {
             console.log("xxxxxxgxx");
           }
         }
-      }, [userProfile]);
+      }, [loader]);
 
 
 
