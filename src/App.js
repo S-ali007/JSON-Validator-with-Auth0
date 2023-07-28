@@ -25,46 +25,46 @@ function App() {
   const [loader, setloader] = useState(false);
 
 
-  // useEffect(() => {
-  //   const webAuth = new auth0.WebAuth({
-  //     domain: "techtribe.us.auth0.com",
-  //     clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-  //     redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
-  //   });
-  //   const parseAccessToken = () => {
-  //     const hash = window.location.hash;
-  //     const tokenIndex = hash.indexOf("access_token=");
-  //     if (tokenIndex !== -1) {
-  //       const endTokenIndex = hash.indexOf("&", tokenIndex);
-  //       const accessToken = hash.substring(
-  //         tokenIndex + "access_token=".length,
-  //         endTokenIndex !== -1 ? endTokenIndex : undefined
-  //       );
-  //       return accessToken;
-  //     }
-  //     return null;
-  //   };
+  useEffect(() => {
+    const webAuth = new auth0.WebAuth({
+      domain: "techtribe.us.auth0.com",
+      clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
+      redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
+    });
+    const parseAccessToken = () => {
+      const hash = window.location.hash;
+      const tokenIndex = hash.indexOf("access_token=");
+      if (tokenIndex !== -1) {
+        const endTokenIndex = hash.indexOf("&", tokenIndex);
+        const accessToken = hash.substring(
+          tokenIndex + "access_token=".length,
+          endTokenIndex !== -1 ? endTokenIndex : undefined
+        );
+        return accessToken;
+      }
+      return null;
+    };
 
-  //   const accessToken = parseAccessToken();
-  //   if (accessToken) {
-  //     webAuth.client.userInfo(accessToken, function (err, user) {
-  //       if (err) {
-  //         console.error("Error fetching user profile:", err);
-  //         return;
-  //       }
+    const accessToken = parseAccessToken();
+    if (accessToken) {
+      webAuth.client.userInfo(accessToken, function (err, user) {
+        if (err) {
+          console.error("Error fetching user profile:", err);
+          return;
+        }
 
-  //       // Store the user profile in state
-  //       setUserProfile(user);
-  //       sessionStorage.setItem("username", JSON.stringify(user));
-  //       console.log(user, "ali");
-  //     });
+        // Store the user profile in state
+        setUserProfile(user);
+        sessionStorage.setItem("username", JSON.stringify(user));
+        console.log(user, "ali");
+      });
 
-  //     if (uData) {
-  //       // navigate("/home");
-  //       console.log("xxxxxxgxx")
-  //     }
-  //   }
-  // }, []);
+      if (uData) {
+        // navigate("/home");
+        console.log("xxxxxxgxx")
+      }
+    }
+  }, []);
 
   console.log(loader)
   return (
@@ -74,9 +74,9 @@ function App() {
         <Route path={"/"} element={<LoginPopup setToken={setUserProfile} />} />
        <Route
           path={"/home"}
-          element={<AuthComp><All_Components setdata={setUserProfile} /></AuthComp> }
+          element={<All_Components setdata={setUserProfile} />}
         />
-        <Route path={"/*"} element={<Page_404 loader={loader} />} />
+        {/* <Route path={"/*"} element={<Page_404 loader={loader} />} /> */}
       </Routes>
     </>
   );
