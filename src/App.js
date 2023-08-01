@@ -23,7 +23,7 @@ function App() {
   const uData = JSON.parse(sessionStorage.getItem("username"));
 
   const [loader, setloader] = useState(true);
-  const [userProfile,setUserProfile]=useState('')
+  const [user,setuser]=useState('')
 
   useEffect(() => {
     const webAuth = new auth0.WebAuth({
@@ -66,15 +66,11 @@ function App() {
     }
   }, []);
 
-  useEffect(()=>{
-     const userInfo = JSON.parse(sessionStorage.getItem("username"))
+  setuser(user);
+  console.log(user);
+  const userInfo = JSON.parse(sessionStorage.getItem("username"))
   console.log(userInfo,'initial rendring') 
- 
-    setUserProfile(userInfo)
-  
   console.log(loader);
-  },[])
- 
 
 
   return (
