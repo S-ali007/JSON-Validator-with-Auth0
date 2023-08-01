@@ -75,7 +75,7 @@ function LoginPopup({ onClose, setToken }) {
                 return;
               }
 
-              // Store the user profile in state
+             
               setUserProfile(user);
 
               sessionStorage.setItem("username", user.sub);
@@ -83,7 +83,7 @@ function LoginPopup({ onClose, setToken }) {
             });
           }
 
-          // // After successful signup, login the user to get the accessToken
+          // // After successful signup
           webAuth.login(
             {
               connection: "JSON-Validator",
