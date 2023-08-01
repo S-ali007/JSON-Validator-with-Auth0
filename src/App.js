@@ -88,7 +88,7 @@ function App() {
         <Route path={"/"} element={<LoginPopup setToken={setUserProfile} />} />
         {uData && <Route
           path={"/home"}
-          element={<All_Components setdata={setUserProfile} />}
+          element={<AuthComp><All_Components setdata={setUserProfile} /></AuthComp>}
         />}
         <Route path={"/*"} element={<Page_404  />} />
       </Routes>
