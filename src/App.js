@@ -86,7 +86,7 @@ function App() {
           element={<SignupPage  />}
         />
         <Route path={"/"} element={<LoginPopup setToken={setUserProfile} />} />
-        {user && <Route
+        {userProfile && <Route
           path={"/home"}
           element={<All_Components setdata={setUserProfile} />}
         />}
