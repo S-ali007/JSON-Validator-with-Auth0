@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 
 function Page_404({loader}) {
   if(loader){
-    return (
+    return <h1>loading...</h1>
+  }
+  return (
     <div className="flex justify-center items-center w-full h-[600px]  ">
         <div className="flex flex-col gap-4">
       <h1 className="  font-bold text-[22px]">PAGE NOT FOUND ERROR 404</h1>
@@ -12,10 +14,7 @@ function Page_404({loader}) {
         were looking for.
       </p>
       <Link to="/" className="underline">Go to home Page</Link></div>
-    </div>)
-  }
-  return (
-    <h1>loading...</h1>
+    </div>
   );
 }
 
