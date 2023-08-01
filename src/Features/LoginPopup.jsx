@@ -5,7 +5,7 @@ import { User } from "@auth0/auth0-react";
 import { Routes, Route, useParams, useNavigate,Navigate } from "react-router-dom";
 
 
-function LoginPopup({ onClose, setToken })  {
+function LoginPopup({ onClose, setToken ,setloader})  {
 
   useEffect(() => {
     const webAuth = new auth0.WebAuth({
@@ -71,7 +71,7 @@ function LoginPopup({ onClose, setToken })  {
     try {
       setLoading(true);
       setLoginError(null);
-
+      setloader(false)
       const webAuth = new auth0.WebAuth({
         domain: "techtribe.us.auth0.com",
         clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
