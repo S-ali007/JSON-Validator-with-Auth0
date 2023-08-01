@@ -23,7 +23,7 @@ function App() {
   const uData = JSON.parse(sessionStorage.getItem("username"));
 
   const [loader, setloader] = useState(true);
-  const [user,setuser]=useState('')
+  const [user, setuser] = useState("");
 
   useEffect(() => {
     const webAuth = new auth0.WebAuth({
@@ -66,16 +66,13 @@ function App() {
     }
   }, []);
 
-
-  useEffect(()=>{
-     setuser(user);
-  console.log(user);
-  const userInfo = JSON.parse(sessionStorage.getItem("username"))
-  console.log(userInfo,'initial rendring') 
-  console.log(loader);
-  },[])
- 
-
+  // useEffect(() => {
+  //   setuser(user);
+  //   console.log(user);
+  //   const userInfo = JSON.parse(sessionStorage.getItem("username"));
+  //   console.log(userInfo, "initial rendring");
+  //   console.log(loader);
+  // }, []);
 
   return (
     <>
@@ -96,12 +93,6 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
 
 // App.js--------------------------------------------------2
 // import React from "react";
@@ -131,9 +122,6 @@ export default App;
 // }
 
 // export default App;
-
-
-
 
 // App.js--------------------------3
 // import React from "react";
@@ -192,16 +180,13 @@ export default App;
 // import { useEffect ,useState} from "react";
 // import auth0 from "auth0-js";
 
-
 // const domain = "techtribe.us.auth0.com";
 // const clientId = "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY";
 
 // function App() {
-//   const [loader, setloader] = React.useState(false); 
+//   const [loader, setloader] = React.useState(false);
 //     const [userProfile, setUserProfile] = useState(null);
 //       const uData = JSON.parse(sessionStorage.getItem("username"));
-
-
 
 //   useEffect(() => {
 //         const webAuth = new auth0.WebAuth({
@@ -222,7 +207,7 @@ export default App;
 //           }
 //           return null;
 //         };
-    
+
 //         const accessToken = parseAccessToken();
 //         if (accessToken) {
 //           webAuth.client.userInfo(accessToken, function (err, user) {
@@ -230,34 +215,30 @@ export default App;
 //               console.error("Error fetching user profile:", err);
 //               return;
 //             }
-    
+
 //             setUserProfile(user);
 //             sessionStorage.setItem("username", JSON.stringify(user));
 //             console.log(user, "ali");
 //           });
-    
+
 //           if (uData) {
 //             console.log("xxxxxxgxx");
 //           }
 //         }
 //       }, [loader]);
 
-
-
-
 //   return (
 //     <Auth0Provider domain={domain} clientId={clientId} redirectUri={window.location.origin}>
-      
+
 //         <Routes>
 //           <Route path="/" element={<LoginPopup />} />
-//           <Route path="/signup" element={<SignupPage setloader={setloader} />} /> 
+//           <Route path="/signup" element={<SignupPage setloader={setloader} />} />
 //           <Route path="/home" element={<All_Components />}/>
 //           <Route path="/*" element={<Page_404 />} />
 //         </Routes>
-     
+
 //     </Auth0Provider>
 //   );
 // }
 
 // export default App;
-
