@@ -90,7 +90,7 @@ function App() {
           path={"/home"}
           element={<AuthComp><All_Components setdata={setUserProfile} /></AuthComp>}
         />}
-        <Route path={"/*"} element={<Page_404   />} />
+        <Route path={"/*"} element={<Page_404  />} />
       </Routes>
     </>
   );

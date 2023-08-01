@@ -60,10 +60,10 @@ function AuthComp({ children }) {
 
   console.log(auth);
   if (loader) {
-    return null
+    return 
   }
   if (auth) {
-    return <Navigate to="/home" /> ;
+    return children;
   } else {
     return <Navigate to="/" />;
   }

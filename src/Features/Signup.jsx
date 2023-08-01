@@ -42,7 +42,7 @@ function SignupPage({setloader}) {
           alert("Error signing up. Please try again later.");
           return;
         }
-
+        alert("Signup successful!........please login")
         console.log("Signup successful!");
 
         handleLogin(email, password);
