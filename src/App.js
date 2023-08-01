@@ -86,10 +86,11 @@ function App() {
           element={<SignupPage setloader={setloader} />}
         />
         <Route path={"/"} element={<LoginPopup setToken={setUserProfile} />} />
-        <Route
+        {(sessionStorage
+        ) && <Route
           path={"/home"}
           element={<All_Components setdata={setUserProfile} />}
-        />
+        />}
         <Route path={"/*"} element={<Page_404 loader={loader} />} />
       </Routes>
     </>
