@@ -54,6 +54,7 @@ function AuthComp({ children }) {
     const uData = JSON.parse(sessionStorage.getItem("username"));
     if (uData) {
       Setauth(true);
+      <Navigate to="/home" />
     }
     Setloader(false);
   }, []);
