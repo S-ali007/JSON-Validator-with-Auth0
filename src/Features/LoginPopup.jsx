@@ -91,6 +91,7 @@ function LoginPopup({ onClose, setToken }) {
               username: email,
               password: password,
             },
+            
             function (err, authResult) {
               if (err) {
                 console.error("Error logging in:", err.code);
@@ -111,6 +112,7 @@ function LoginPopup({ onClose, setToken }) {
               // Navigate to the home page after successful signup and login
               <Navigate to="/home" />;
             }
+            
           );
         }
       );

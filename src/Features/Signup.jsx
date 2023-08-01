@@ -28,6 +28,7 @@ function SignupPage({setloader}) {
   });
   const handleSignup = (e) => {
     e.preventDefault();
+    setloader(false)
     const { email, password, full_name } = formData;
     webAuth.signup(
       {

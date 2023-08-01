@@ -22,7 +22,7 @@ function App() {
   const navigate = useNavigate();
   const uData = JSON.parse(sessionStorage.getItem("username"));
 
-  // const [loader, setloader] = useState(true);
+  const [loader, setloader] = useState(true);
   const [user, setuser] = useState("");
 
   useEffect(() => {
@@ -83,14 +83,14 @@ function App() {
       <Routes>
         <Route
           path={"/signup"}
-          element={<SignupPage  />}
+          element={<SignupPage setloader={setloader}  />}
         />
         <Route path={"/"} element={<LoginPopup setToken={setUserProfile} />} />
          <Route
           path={"/home"}
           element={<AuthComp><All_Components setdata={setUserProfile} /></AuthComp>}
         />
-        <Route path={"/*"} element={<Page_404  />} />
+        <Route path={"/*"} element={<Page_404 loader={loader} />} />
       </Routes>
     </>
   );
