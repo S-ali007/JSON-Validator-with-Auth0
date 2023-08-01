@@ -108,7 +108,7 @@ function LoginPopup({ onClose, setToken }) {
               // });
 
               // Navigate to the home page after successful signup and login
-              navigate("/");
+              // navigate("/");
             }
           );
         }
