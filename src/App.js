@@ -66,11 +66,15 @@ function App() {
     }
   }, []);
 
-  setuser(user);
+
+  useEffect(()=>{
+     setuser(user);
   console.log(user);
   const userInfo = JSON.parse(sessionStorage.getItem("username"))
   console.log(userInfo,'initial rendring') 
   console.log(loader);
+  },[])
+ 
 
 
   return (
