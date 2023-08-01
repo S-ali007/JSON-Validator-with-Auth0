@@ -56,14 +56,11 @@ function AuthComp({ children }) {
       Setauth(true);
     }
     Setloader(false);
-    <h1>loading...</h1>
   }, []);
 
   console.log(auth);
   if (loader) {
-    
-      return 
-    
+    return null;
   }
   if (auth) {
     return children;
