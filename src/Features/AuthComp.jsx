@@ -60,7 +60,7 @@ function AuthComp({ children }) {
 
   console.log(auth);
   if (loader) {
-    return  <h1>loading.......</h1>
+    return null
   }
   if (auth) {
     return children;
