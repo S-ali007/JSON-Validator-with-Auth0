@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import auth0 from "auth0-js";
 import { User } from "@auth0/auth0-react";
-import { Routes, Route, useParams, useNavigate } from "react-router-dom";
+import { Routes, Route, useParams, useNavigate,Navigate } from "react-router-dom";
+
 
 function LoginPopup({ onClose, setToken }) {
   const [formData, setFormData] = useState({
@@ -108,7 +109,7 @@ function LoginPopup({ onClose, setToken }) {
               // });
 
               // Navigate to the home page after successful signup and login
-              navigate("/home");
+              <Navigate to="/home" />;
             }
           );
         }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate ,Navigate } from "react-router-dom";
 import auth0 from "auth0-js";
 
 function SignupPage({setloader}) {
@@ -65,7 +65,8 @@ function SignupPage({setloader}) {
           alert("Error logging in. Please check your credentials.");
           return;
         }
-        navigate("/home")
+        // navigate("/home")
+        <Navigate to="/home" />;
         }
     );
   };
