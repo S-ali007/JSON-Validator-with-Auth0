@@ -60,7 +60,7 @@ function App() {
       });
 
       if (uData) {
-        // navigate("/home");
+        navigate("/home");
         console.log("xxxxxxgxx");
       }
     }
