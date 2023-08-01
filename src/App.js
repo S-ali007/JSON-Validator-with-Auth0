@@ -65,6 +65,12 @@ function App() {
     }
   }, []);
 
+  useEffect(()=>{
+    const userInfo = JSON.parse(sessionStorage.getItem("username"))
+    console.log(userInfo,'ali0007') 
+    setUserProfile(userInfo)
+  },[])
+
   console.log(loader);
   return (
     <>
