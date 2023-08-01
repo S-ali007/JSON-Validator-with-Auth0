@@ -66,6 +66,10 @@ function App() {
     }
   }, []);
 
+  if(!sessionStorage){
+    navigate("/")
+
+  }
   // useEffect(() => {
   //   setuser(user);
   //   console.log(user);
