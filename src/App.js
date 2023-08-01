@@ -78,7 +78,7 @@ function App() {
           path={"/home"}
           element={<All_Components setdata={setUserProfile} />}
         />
-        {/* <Route path={"/*"} element={<Page_404 loader={loader} />} /> */}
+        <Route path={"/*"} element={<Page_404 loader={loader} />} />
       </Routes>
     </>
   );
