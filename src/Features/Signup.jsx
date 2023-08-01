@@ -65,7 +65,7 @@ function SignupPage({setloader}) {
           alert("Error logging in. Please check your credentials.");
           return;
         }
-        // navigate("/home")
+        navigate("/home")
         }
     );
   };
