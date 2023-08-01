@@ -65,13 +65,11 @@ function App() {
     }
   }, []);
 
-  useEffect(()=>{
-    const userInfo = JSON.parse(sessionStorage.getItem("username"))
-    console.log(userInfo,'ali0007') 
-    setUserProfile(userInfo)
-  },[])
-
+  const userInfo = JSON.parse(sessionStorage.getItem("username"))
+  console.log(userInfo,'initial rendring') 
   console.log(loader);
+
+
   return (
     <>
       <Routes>
