@@ -86,8 +86,8 @@ function App() {
           element={<SignupPage setloader={setloader} />}
         />
         <Route path={"/"} element={<LoginPopup setToken={setUserProfile} />} />
-        {(sessionStorage
-        ) && <Route
+        {userProfile
+         && <Route
           path={"/home"}
           element={<All_Components setdata={setUserProfile} />}
         />}
