@@ -66,9 +66,8 @@ function App() {
     }
   }, []);
 
-  if(!sessionStorage){
-    navigate("/")
-
+  if (!sessionStorage) {
+    navigate("/");
   }
   // useEffect(() => {
   //   setuser(user);
@@ -86,7 +85,7 @@ function App() {
           element={<SignupPage setloader={setloader} />}
         />
         <Route path={"/"} element={<LoginPopup setToken={setUserProfile} />} />
-         <Route
+        <Route
           path={"/home"}
           element={<All_Components setdata={setUserProfile} />}
         />
