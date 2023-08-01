@@ -22,7 +22,7 @@ function App() {
   const navigate = useNavigate();
   const uData = JSON.parse(sessionStorage.getItem("username"));
 
-  const [loader, setloader] = useState(false);
+  const [loader, setloader] = useState(true);
   const [user, setuser] = useState("");
 
   useEffect(() => {
