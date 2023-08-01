@@ -66,7 +66,7 @@ function AuthComp({ children }) {
   if (auth) {
     return children;
   } else {
-    return <Navigate to="/home" />;
+    return null;
   }
 }
 
