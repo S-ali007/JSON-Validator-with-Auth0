@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 function Header({ setToken, extraclasses }) {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [userProfile, setUserProfile] = useState(null);
-  const uData = JSON.parse(sessionStorage.getItem("username"));
+    const uData = JSON.parse(sessionStorage.getItem("username"));
 
   const navigate = useNavigate();
 

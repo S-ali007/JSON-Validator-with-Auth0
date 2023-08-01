@@ -1,53 +1,10 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import auth0 from "auth0-js";
 import { User } from "@auth0/auth0-react";
-import { Routes, Route, useParams, useNavigate,Navigate } from "react-router-dom";
+import { Routes, Route, useParams, useNavigate } from "react-router-dom";
 
-
-function LoginPopup({ onClose, setToken ,setloader})  {
-
-  useEffect(() => {
-    const webAuth = new auth0.WebAuth({
-      domain: "techtribe.us.auth0.com",
-      clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
-      redirectUri: "https://https://melodic-cassata-2af0ea.netlify.app/home",
-    });
-    const parseAccessToken = () => {
-      const hash = window.location.hash;
-      const tokenIndex = hash.indexOf("access_token=");
-      if (tokenIndex !== -1) {
-        const endTokenIndex = hash.indexOf("&", tokenIndex);
-        const accessToken = hash.substring(
-          tokenIndex + "access_token=".length,
-          endTokenIndex !== -1 ? endTokenIndex : undefined
-        );
-        return accessToken;
-      }
-      return null;
-    };
-
-    const accessToken = parseAccessToken();
-    if (accessToken) {
-      webAuth.client.userInfo(accessToken, function (err, user) {
-        if (err) {
-          console.error("Error fetching user profile:", err);
-          return;
-        }
-
-        // Store the user profile in state
-        setUserProfile(user);
-        sessionStorage.setItem("username", JSON.stringify(user));
-        console.log(user, "ali");
-      });
-
-      if (user) {
-        // navigate("/home");
-        console.log("xxxxxxgxx");
-      }
-    }
-  }, []);
-
+function LoginPopup({ onClose, setToken }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -71,7 +28,7 @@ function LoginPopup({ onClose, setToken ,setloader})  {
     try {
       setLoading(true);
       setLoginError(null);
-      setloader(false)
+
       const webAuth = new auth0.WebAuth({
         domain: "techtribe.us.auth0.com",
         clientID: "ffbSF4A20lHnWOs1A6TuXpVZ0jESDGgY",
@@ -110,30 +67,29 @@ function LoginPopup({ onClose, setToken ,setloader})  {
             return null;
           };
 
-          // const accessToken = parseAccessToken();
-          // if (accessToken) {
-          //   webAuth.client.userInfo(accessToken, function (err, user) {
-          //     if (err) {
-          //       console.error("Error fetching user profile:", err);
-          //       return;
-          //     }
+          const accessToken = parseAccessToken();
+          if (accessToken) {
+            webAuth.client.userInfo(accessToken, function (err, user) {
+              if (err) {
+                console.error("Error fetching user profile:", err);
+                return;
+              }
 
-             
-          //     setUserProfile(user);
+              // Store the user profile in state
+              setUserProfile(user);
 
-          //     sessionStorage.setItem("username", user.sub);
-          //     console.log(user);
-          //   });
-          // }
+              sessionStorage.setItem("username", user.sub);
+              console.log(user);
+            });
+          }
 
-          // // After successful signup
+          // // After successful signup, login the user to get the accessToken
           webAuth.login(
             {
               connection: "JSON-Validator",
               username: email,
               password: password,
             },
-            
             function (err, authResult) {
               if (err) {
                 console.error("Error logging in:", err.code);
@@ -152,14 +108,11 @@ function LoginPopup({ onClose, setToken ,setloader})  {
               // });
 
               // Navigate to the home page after successful signup and login
-              <Navigate to="/home" />;
+              navigate("/");
             }
-            
           );
         }
       );
-
-     
     } catch (error) {
       console.error("Error logging in:", error);
       setLoginError("Error logging in. Please try again later.");

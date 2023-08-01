@@ -60,7 +60,7 @@ function App() {
       });
 
       if (uData) {
-        // navigate("/home");
+        navigate("/home");
         console.log("xxxxxxgxx");
       }
     }
@@ -83,13 +83,13 @@ function App() {
       <Routes>
         <Route
           path={"/signup"}
-          element={<SignupPage setloader={setloader}  />}
+          element={<SignupPage setloader={setloader} />}
         />
-        <Route path={"/"} element={<LoginPopup setloader={setloader} setToken={setUserProfile} />} />
-         <Route
+        <Route path={"/"} element={<LoginPopup setToken={setUserProfile} />} />
+        {user && <Route
           path={"/home"}
-          element={<AuthComp><All_Components setdata={setUserProfile} /></AuthComp>}
-        />
+          element={<All_Components setdata={setUserProfile} />}
+        />}
         <Route path={"/*"} element={<Page_404 loader={loader} />} />
       </Routes>
     </>
