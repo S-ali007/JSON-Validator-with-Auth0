@@ -6,6 +6,9 @@ import auth0 from "auth0-js";
 
 function AuthComp({children}) {
 
+  const [loader,Setloader]=useState(true)
+  const [auth ,Setauth]=useState(false)
+
     // const [userProfile, setUserProfile] = useState(null);
 
     // useEffect(()=>{
@@ -50,10 +53,19 @@ function AuthComp({children}) {
     //     }
         
     // },[])
-    const uData =JSON.parse(sessionStorage.getItem("username"))
-  
-    console.log(uData)
-        if(uData){
+    useEffect(()=>{
+      const uData =JSON.parse(sessionStorage.getItem("username"))
+      if(uData){
+        Setauth(true)
+      }
+      Setloader(false)
+    },[])
+    
+    console.log(auth)
+    if(loader){
+      return null;
+    }
+        if(auth){
             return children
             
         }
